@@ -19,10 +19,10 @@ const Footer = () => {
 
           {/* Links */}
           <div className="flex flex-col items-center lg:flex-row space-y-2 md:space-y-0 md:space-x-6">
-            <a href="/about" className="hover:underline">About Us</a>
-            <a href="#services" className="hover:underline">Services</a>
-            <a href="/properties" className="hover:underline">Properties</a>
-            <a href="/about" className="hover:underline">Contact</a>
+            <Link href="/about" className="hover:underline">About Us</a>
+            <Link href="#services" className="hover:underline">Services</Link>
+            <Link href="/properties" className="hover:underline">Properties</Link>
+            <Link href="/about" className="hover:underline">Contact</Link>
           </div>
 
           {/* Contact Details */}

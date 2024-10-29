@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Property } from "@/types";
 import axios from "axios";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 const Properties = () => {
     const filterTypes = ["All", "Villa", "House", "Flat"] as const;

@@ -61,7 +61,7 @@ const FormDialogBox = () => {
                 <DialogHeader>
                     <DialogTitle>Contact Us</DialogTitle>
                     <DialogDescription>
-                        Don't worry, we won't share your details.
+                        Don&apos;t worry, we won&apos;t share your details.
                     </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">

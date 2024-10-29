@@ -5,7 +5,7 @@ import { connectDB } from "@/lib/dbConnection";
 import PropertyModel from "@/models/propertyModel";
 import CustomerModel from "@/models/customerModel";
 
-export const GET = async (req: any) => {
+export const GET = async () => {
     try {
         await connectDB()
         const data = await PropertyModel.find()

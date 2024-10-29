@@ -1,6 +1,7 @@
+import { Property } from "@/types"
 import PropertyCard from "../PropertyCard"
 
-const DisplayProperties = ({data, loading}:{data:Array<any>, loading:boolean}) => {
+const DisplayProperties = ({data, loading}:{data:Property[], loading:boolean}) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                     {data && data.map(({ _id, propertyType, price, images, rooms, features, yearBuilt, area, location }) => (

@@ -45,3 +45,15 @@ export interface PropertyFormValues {
   yearBuilt: number;
   features: string[];
 }
+
+export interface Property {
+  _id: string;
+  propertyType: string;
+  price: string;
+  images: string[];
+  rooms: { bedrooms: number; bathrooms: number };
+  features: string[];
+  yearBuilt: number;
+  area: string;
+  location: string;
+}

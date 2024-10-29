@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import PropertyCard from "../PropertyCard";
 import {
@@ -16,11 +16,10 @@ import { usePathname } from "next/navigation";
 
 interface PropertyCarouselProps {
     data: Property[];
-    showMoreLink?: boolean;
+    loading: boolean;
 }
 
-const PropertyCarousel = ({ data }: PropertyCarouselProps) => {
-    const [loading, setLoading] = useState(false);
+const PropertyCarousel = ({ data, loading }: PropertyCarouselProps) => {
     const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
     const pathname = usePathname()
 

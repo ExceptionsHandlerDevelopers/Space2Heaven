@@ -35,7 +35,7 @@ const PropertyPane = () => {
           Discover your dream property with us. Explore a wide range of real estate options for every taste and budget.
         </p>
       </div>
-      <PropertyCaraousel data={data} />
+      <PropertyCaraousel data={data} loading={loading} />
     </section>
 
   )

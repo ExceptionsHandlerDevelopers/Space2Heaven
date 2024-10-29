@@ -1,6 +1,4 @@
 import { connect, ConnectionStates } from "mongoose"
-import { properties } from "@/constants/sampleData"
-import PropertyModel from "@/models/propertyModel"
 
 const MONGODB_URL = process.env.MONGODB_URL
 

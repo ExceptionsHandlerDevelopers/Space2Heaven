@@ -11,14 +11,17 @@ import {
 import { useRouter } from "next/navigation";
 
 const SelectService = () => {
-
-  const router = useRouter()
-  const [selectedService, setSelectedService] = useState<"buyProperty" | "interiorDesign" |"">("");
+  const router = useRouter();
+  const [selectedService, setSelectedService] = useState<"buyProperty" | "interiorDesign" | "">("");
 
   const handleSelectChange = (value: "buyProperty" | "interiorDesign") => {
     setSelectedService(value); // Update the state with the selected value
-    value === "buyProperty" ? router.push("/properties") :
-      value === "interiorDesign" ? router.push("/properties/interior") : null
+
+    if (value === "buyProperty") {
+      router.push("/properties");
+    } else if (value === "interiorDesign") {
+      router.push("/properties/interior");
+    }
   };
 
   return (

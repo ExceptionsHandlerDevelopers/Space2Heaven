@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { MenuBar, MobileNav } from "./"
+import { MenuBar, MobileNav } from ".."
 
 const Navbar = () => {
   return (
@@ -12,11 +12,12 @@ const Navbar = () => {
           height={50}
           className="max-sm:size-10"
         />
+        <h1 className="text-2xl font-bold">Home2Nest</h1>
       </Link>
 
       <div className="flex-between gap-5">
         <MenuBar />
-        <Link href="/sign-in" className="w-6 h-6">
+        <Link href="/signin" className="w-6 h-6">
           <Image src="/icons/user.svg"
             alt="user"
             width={30}

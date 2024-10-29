@@ -17,7 +17,7 @@ const SelectService = () => {
 
   const handleSelectChange = (value: "buyProperty" | "interiorDesign") => {
     setSelectedService(value); // Update the state with the selected value
-    value === "buyProperty" ? router.push("/properties/buy") :
+    value === "buyProperty" ? router.push("/properties") :
       value === "interiorDesign" ? router.push("/properties/interior") : null
   };
 

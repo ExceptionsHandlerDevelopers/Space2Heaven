@@ -8,13 +8,12 @@ import {
     MenubarTrigger,
 } from "@/components/ui/menubar";
 
-
 const MenuBar = () => {
     return (
         <Menubar className="max-sm:hidden bg-transparent border-none">
-            {/* Admin Actions Link */}
-            <MenubarMenu>
-                <MenubarTrigger>Admin Actions</MenubarTrigger>
+            {/* Admin Actions Menu */}
+            {/* <MenubarMenu>
+                <MenubarTrigger aria-label="Admin Actions">Admin Actions</MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>
                         <Link href="/">Add Property</Link>
@@ -23,21 +22,30 @@ const MenuBar = () => {
                         <Link href="/">Remove Property</Link>
                     </MenubarItem>
                 </MenubarContent>
-            </MenubarMenu>
+            </MenubarMenu> */}
 
-            {/* Dynamic Menus */}
+            {/* Dynamic Menu Items */}
             {menuBarOptions.map(({ title, options }, index) => (
                 <MenubarMenu key={index}>
-                    <MenubarTrigger>{title}</MenubarTrigger>
+                    <MenubarTrigger aria-label={title}>{title}</MenubarTrigger>
                     <MenubarContent>
-                        {options.map(({ option, link }, subindex) => (
-                            <MenubarItem key={subindex}>
+                        {options.map(({ option, link }, subIndex) => (
+                            <MenubarItem key={subIndex}>
                                 <Link href={link}>{option}</Link>
                             </MenubarItem>
                         ))}
                     </MenubarContent>
                 </MenubarMenu>
             ))}
+
+            {/* About Link as a Separate Menu */}
+            <MenubarMenu>
+                <MenubarContent>
+                    <MenubarItem>
+                        <Link href="/about">About</Link>
+                    </MenubarItem>
+                </MenubarContent>
+            </MenubarMenu>
         </Menubar>
     );
 };

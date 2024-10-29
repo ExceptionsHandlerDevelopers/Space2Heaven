@@ -5,8 +5,18 @@ export const sidebarLinks = [
         imgUrl: "/icons/Home.svg",
     },
     {
-        route: "/buy",
+        route: "/properties",
         label: "Buy",
+        imgUrl: "/icons/buy.svg",
+    },
+    {
+        route: "/interior",
+        label: "Interior",
+        imgUrl: "/icons/buy.svg",
+    },
+    {
+        route: "/about",
+        label: "About",
         imgUrl: "/icons/buy.svg",
     },
 ]
@@ -17,11 +27,11 @@ export const menuBarOptions = [
         options: [
             {
                 option: "Home for sale",
-                link: "/"
+                link: "/properties"
             },
             {
                 option: "For sale by owner",
-                link: "/"
+                link: "/properties"
             }
         ]
     },
@@ -30,11 +40,11 @@ export const menuBarOptions = [
         options: [
             {
                 option: "Home for sale",
-                link: "/"
+                link: "/properties"
             },
             {
                 option: "For sale by owner",
-                link: "/"
+                link: "/properties"
             }
         ]
     },
@@ -43,12 +53,13 @@ export const menuBarOptions = [
         options: [
             {
                 option: "Home for sale",
-                link: "/"
+                link: "/properties"
             },
             {
                 option: "For sale by owner",
-                link: "/"
+                link: "/properties"
             }
         ]
     },
 ]
+

@@ -10,7 +10,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import Loader from "./Loader";
+import Loader from "../Loader";
 
 const FormDialogBox = () => {
 

@@ -1,11 +1,11 @@
-import Image from 'next/image';
-import { PropertyCardProps } from '@/types';
-import CardLoader from './CardLoader';
 import Link from 'next/link';
+import Image from 'next/image';
+import CardLoader from './CardLoader';
+import { PropertyCardProps } from '@/types';
 
 const PropertyCard = ({ id,imageSrc, price, features, rooms, tag, year, area, location, isLoading }: PropertyCardProps) => {
     return (
-        <Link href={`/${id}`} className="property-card-styles">
+        <Link href={`/properties/${id}`} className="property-card-styles">
             {isLoading ? <CardLoader /> : <>
                 {/* Tag on top of the image */}
                 {tag && (

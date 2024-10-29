@@ -1,26 +1,10 @@
 // src/components/PropertyForm.tsx
+"use client"
+
+import { PropertyFormValues } from '@/types';
 import React, { useState } from 'react';
 
-interface PropertyFormValues {
-  title: string;
-  images: string[];
-  bedrooms: number;
-  bathrooms?: number;
-  description: string;
-  price: number;
-  location: string;
-  street?: string;
-  city?: string;
-  state?: string;
-  postalCode?: string;
-  propertyType: string;
-  serviceType: 'buy' | 'sell' | 'rent';
-  status: 'available' | 'sold' | 'pending';
-  dimensions: string;
-  area: string;
-  yearBuilt: number;
-  features: string[];
-}
+
 
 const PropertyForm: React.FC = () => {
   const [formData, setFormData] = useState<PropertyFormValues>({

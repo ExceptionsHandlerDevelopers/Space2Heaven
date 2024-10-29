@@ -24,3 +24,24 @@ export interface Property {
     area: string,
     isLoading:boolean
 }
+
+export interface PropertyFormValues {
+  title: string;
+  images: string[];
+  bedrooms: number;
+  bathrooms?: number;
+  description: string;
+  price: number;
+  location: string;
+  street?: string;
+  city?: string;
+  state?: string;
+  postalCode?: string;
+  propertyType: string;
+  serviceType: 'buy' | 'sell' | 'rent';
+  status: 'available' | 'sold' | 'pending';
+  dimensions: string;
+  area: string;
+  yearBuilt: number;
+  features: string[];
+}

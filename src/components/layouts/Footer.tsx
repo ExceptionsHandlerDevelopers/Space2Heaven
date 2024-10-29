@@ -19,7 +19,7 @@ const Footer = () => {
 
           {/* Links */}
           <div className="flex flex-col items-center lg:flex-row space-y-2 md:space-y-0 md:space-x-6">
-            <Link href="/about" className="hover:underline">About Us</a>
+            <Link href="/about" className="hover:underline">About Us</Link>
             <Link href="#services" className="hover:underline">Services</Link>
             <Link href="/properties" className="hover:underline">Properties</Link>
             <Link href="/about" className="hover:underline">Contact</Link>
@@ -38,7 +38,7 @@ const Footer = () => {
           <p className="text-sm">© {new Date().getFullYear()} Home2Nest. All rights reserved.</p>
         </div>
       </div>
-    </footer>
+    </section>
   );
 };
 

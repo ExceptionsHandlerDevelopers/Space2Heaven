@@ -81,7 +81,7 @@ const PropertyById = ({ id }: { id: string }) => {
             <hr className="my-8 w-full max-w-4xl" />
             <div className="w-full max-w-6xl">
                 <h1 className="text-2xl font-semibold mb-4">Similar Properties</h1>
-                <PropertyCaraousel data={similarProperties} />
+                <PropertyCaraousel data={similarProperties} loading={loading} />
             </div>
         </section>
     );

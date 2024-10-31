@@ -15,9 +15,6 @@ const PropertyById = ({ id }: { id: string }) => {
             try {
                 const response = await axios.get(`/api/properties?id=${id}`);
                 const { matchingData, similarData } = response.data;
-                console.log("Matching Data: ", matchingData);
-                console.log("Similar Data: ", similarData);
-
 
                 // Set the main property data
                 setPropertyData(matchingData);
@@ -34,7 +31,19 @@ const PropertyById = ({ id }: { id: string }) => {
 
     if (loading) return <p>Loading property details...</p>;
     if (!propertyData) return <p>Property not found.</p>;
-    const { images, title, rooms, dimensions, area, features, location, status, description } = propertyData
+    const {
+        images,
+        title = "Title",
+        rooms = {bedrooms: 0, bathrooms: 0},
+        dimensions = "N/A",
+        area = "N/A",
+        features = [],
+        location = "Not specified",
+        status = "Unknown",
+        description = "No description available.",
+        price = "N/A"
+    } = propertyData;
+
 
     return (
         <section className="min-h-screen w-full flex flex-col items-center my-14 px-4">
@@ -61,7 +70,7 @@ const PropertyById = ({ id }: { id: string }) => {
                 <div className="flex flex-wrap gap-4 items-center text-lg">
                     <h2 className="font-semibold">Location: {location || "Not specified"}</h2>
                     <span>Status: <strong>{status || "Unknown"}</strong></span>
-                    <h1 className="font-bold text-xl">Price: ${propertyData.price || "N/A"}</h1>
+                    <h1 className="font-bold text-xl">Price: ${price || "N/A"}</h1>
                 </div>
 
                 <hr className="my-4" />

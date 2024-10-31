@@ -1,3 +1,7 @@
+"use client"
+
+import { useState } from "react"
+import { authTabData } from "@/constants"
 import {
     Card,
     CardContent,
@@ -14,45 +18,71 @@ import {
 } from "@/components/ui/tabs"
 import Input from "../Input"
 
-const FormTabs = () => {
+type FormTabsProps = {
+    userType: string
+    type: string
+}
+
+
+const FormTabs: React.FC<FormTabsProps> = ({ userType, type }) => {
+    const [formData, setFormData] = useState({ email: "", password: "" })
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target
+        setFormData((prev) => ({ ...prev, [name]: value }))
+    }
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        console.log("Form Data Submitted:", formData)
+    }
+
     return (
-        <Tabs defaultValue="account" className="w-[400px]">
+        <Tabs defaultValue={userType} className="w-[400px]">
             <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="users">Users</TabsTrigger>
-                <TabsTrigger value="admins">Admins</TabsTrigger>
+                {authTabData.map(({ value, title }) => (
+                    <TabsTrigger key={value} value={value}>
+                        {title}
+                    </TabsTrigger>
+                ))}
             </TabsList>
-            <TabsContent value="users">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Users</CardTitle>
-                        <CardDescription>
-                            This is for User for having better experience.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-2">
-                        <Input title={"Email ID"} value="" placeholder="Enter your EmailID" type={"email"} />
-                        <Input title={"Password"} value="" placeholder="Enter your password" type={"password"} />
-                    </CardContent>
-                </Card>
-            </TabsContent>
-            <TabsContent value="admins">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Admin</CardTitle>
-                        <CardDescription>
-                            Only for Admins
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-2">
-                        <Input title={"Email ID"} value="" placeholder="Enter your EmailID" type={"email"} />
-                        <Input title={"Password"} value="" placeholder="Enter your password" type={"password"} />
-                    </CardContent>
-                    <CardFooter>
-                        <button className="btn-class">Sign In</button>
-                    </CardFooter>
-                </Card>
-            </TabsContent>
+            {authTabData.map(({ value, description, title }) => (
+                <TabsContent key={value} value={value}>
+                    <Card>
+                        <CardHeader className="text-center">
+                            <CardTitle>{title}</CardTitle>
+                            <CardDescription>{description}</CardDescription>
+                        </CardHeader>
+                        <form onSubmit={handleSubmit}>
+                            <CardContent className="space-y-2">
+                                <Input
+                                    title="Email ID"
+                                    name="email"
+                                    value={formData.email}
+                                    placeholder="Enter your Email ID"
+                                    type="email"
+                                    onChange={handleInputChange}
+                                />
+                                <Input
+                                    title="Password"
+                                    name="password"
+                                    value={formData.password}
+                                    placeholder="Enter your password"
+                                    type="password"
+                                    onChange={handleInputChange}
+                                />
+                            </CardContent>
+                            <CardFooter>
+                                <button type="submit" className="btn-class w-full">
+                                    {type === "signin" ? "Sign In" : "Sign Up"}
+                                </button>
+                            </CardFooter>
+                        </form>
+                    </Card>
+                </TabsContent>
+            ))}
         </Tabs>
     )
 }
+
 export default FormTabs

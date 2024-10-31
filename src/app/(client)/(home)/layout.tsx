@@ -3,8 +3,8 @@ import { ReactNode } from "react"
 import {Footer, Navbar} from "@/components"
 
 export const metadata: Metadata = {
-    title: "Home2Nest: Your Dream Home Awaits",
-    description: "Find your perfect space with Home Nest – your trusted partner in buying and selling properties tailored just for you.",
+    title: "Space2Haven: Your Dream Home Awaits",
+    description: "Find your perfect space with Space2Haven – your trusted partner in buying and selling properties tailored just for you.",
     icons: {
         icon: "/logo.svg"
     }

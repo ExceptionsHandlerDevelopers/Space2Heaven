@@ -5,7 +5,7 @@ import { PropertyCardProps } from '@/types';
 
 const PropertyCard = ({ id,imageSrc, price, features, rooms, tag, year, area, location, isLoading }: PropertyCardProps) => {
     return (
-        <Link href={`/properties/${id}`} className="property-card-styles">
+        <Link href={`/properties?id=${id}`} className="property-card-styles">
             {isLoading ? <CardLoader /> : <>
                 {/* Tag on top of the image */}
                 {tag && (
@@ -21,6 +21,7 @@ const PropertyCard = ({ id,imageSrc, price, features, rooms, tag, year, area, lo
                         alt={tag}
                         layout="fill"
                         objectFit="cover"
+                        className='hover:scale-110 duration-500'
                     />
                 </div>
 

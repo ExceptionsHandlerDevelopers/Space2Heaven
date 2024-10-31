@@ -9,12 +9,12 @@ const Footer = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image src="/logo.svg"
-              alt="Home2Nest"
+              alt="Space2Haven"
               width={50}
               height={50}
               className="max-sm:size-10"
             />
-            <h1 className="text-2xl font-bold">Home2Nest</h1>
+            <h1 className="text-2xl font-bold">Space2Haven</h1>
           </Link>
 
           {/* Links */}
@@ -29,13 +29,13 @@ const Footer = () => {
           <div className="mt-4 md:mt-0">
             <p className="text-sm">Fake Address: 1234 Main St, City, Country</p>
             <p className="text-sm">Phone: +1 (234) 567-8901</p>
-            <p className="text-sm">Email: info@home2nest.com</p>
+            <p className="text-sm">Email: info@Space2Haven.com</p>
           </div>
         </div>
 
         {/* Copyright */}
         <div className="mt-8 border-t border-gray-700 pt-4 text-center">
-          <p className="text-sm">© {new Date().getFullYear()} Home2Nest. All rights reserved.</p>
+          <p className="text-sm">© {new Date().getFullYear()} Space2Haven. All rights reserved.</p>
         </div>
       </div>
     </section>

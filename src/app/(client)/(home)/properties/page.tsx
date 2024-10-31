@@ -1,14 +1,17 @@
 "use client";
 
-import { DisplayProperties, Loader } from "@/components";
+import { DisplayProperties, Loader, PropertyById } from "@/components";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Property } from "@/types";
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Properties = () => {
     const filterTypes = ["All", "Villa", "House", "Flat"] as const;
+    const searchParams = useSearchParams();
+    const id = searchParams.get('id')
     const [data, setData] = useState<Property[]>([]);
     const [filteredData, setFilteredData] = useState<Property[]>([]);
     const [loading, setLoading] = useState(true);
@@ -45,6 +48,9 @@ const Properties = () => {
     const handleFilterChange = (value: (typeof filterTypes)[number]) => setSelectedFilter(value);
 
     if (loading) return <Loader />;
+    if (id) {
+        return <PropertyById id={id} />;
+    }
 
     return (
         <section className="min-h-screen w-full flex flex-col md:flex-row my-20 px-4 md:px-10">

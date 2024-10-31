@@ -16,7 +16,7 @@ const HomeBanner = () => {
             <div className="absolute inset-0 flex-center bg-black bg-opacity-50 flex-col gap-3">
                 <div className="text-center px-4">
                     <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white">
-                        Welcome to Home Nest
+                        Welcome to Space2Haven
                     </h1>
                     <p className="mt-2 md:mt-4 text-base md:text-lg lg:text-xl text-white">
                         Find your perfect home with ease and trust.

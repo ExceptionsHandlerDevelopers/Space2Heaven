@@ -1,0 +1,90 @@
+"use client";
+import axios from "axios";
+import { Property } from "@/types";
+import { useEffect, useState } from "react";
+import { DisplayCarousel, PropertyCaraousel } from "@/components";
+
+const PropertyById = ({ id }: { id: string }) => {
+    const [propertyData, setPropertyData] = useState<Property | null>(null);
+    const [similarProperties, setSimilarProperties] = useState<Property[]>([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchProperty = async () => {
+            setLoading(true)
+            try {
+                const response = await axios.get(`/api/properties?id=${id}`);
+                const { matchingData, similarData } = response.data;
+                console.log("Matching Data: ", matchingData);
+                console.log("Similar Data: ", similarData);
+
+
+                // Set the main property data
+                setPropertyData(matchingData);
+                setSimilarProperties(similarData);
+                setLoading(false)
+            } catch (error) {
+                console.error("Failed to fetch property data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProperty();
+    }, [id]);
+
+    if (loading) return <p>Loading property details...</p>;
+    if (!propertyData) return <p>Property not found.</p>;
+    const { images, title, rooms, dimensions, area, features, location, status, description } = propertyData
+
+    return (
+        <section className="min-h-screen w-full flex flex-col items-center my-14 px-4">
+            {/* Main Property Carousel */}
+            <div className="w-full max-w-6xl mb-10">
+                {images && <DisplayCarousel images={images} />}
+            </div>
+
+            {/* Property Details */}
+            <div className="w-full max-w-6xl space-y-6 bg-white p-6 rounded-lg shadow-md">
+                {/* Property Specs */}
+                <h1 className="text-xl lg:text-3xl font-bold text-left w-full">{title || "Title"}</h1>
+                <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+                    <h2 className="md:text-lg font-semibold">Rooms: {rooms?.bedrooms}</h2>
+                    <h2 className="md:text-lg font-semibold">Baths: {rooms?.bathrooms}</h2>
+                    <h2 className="md:text-lg font-semibold">Dimensions: {dimensions || "N/A"}</h2>
+                    <h2 className="md:text-lg font-semibold">Area: {area || "N/A"} sq.ft</h2>
+                </div>
+
+                {/* Property Features */}
+                <div className="text-gray-700">{features?.join(", ") || "No features listed."}</div>
+
+                {/* Property Info */}
+                <div className="flex flex-wrap gap-4 items-center text-lg">
+                    <h2 className="font-semibold">Location: {location || "Not specified"}</h2>
+                    <span>Status: <strong>{status || "Unknown"}</strong></span>
+                    <h1 className="font-bold text-xl">Price: ${propertyData.price || "N/A"}</h1>
+                </div>
+
+                <hr className="my-4" />
+
+                {/* Property Description */}
+                <div>
+                    <h1 className="text-xl font-semibold">About</h1>
+                    <p className="text-gray-600 leading-relaxed">{description || "No description available."}</p>
+                </div>
+
+                <button className="btn-class">
+                    Contact Us
+                </button>
+            </div>
+
+            {/* Similar Properties Carousel */}
+            <hr className="my-8 w-full max-w-4xl" />
+            <div className="w-full max-w-6xl">
+                <h1 className="text-2xl font-semibold mb-4">Similar Properties</h1>
+                <PropertyCaraousel data={similarProperties} />
+            </div>
+        </section>
+    );
+};
+
+export default PropertyById;

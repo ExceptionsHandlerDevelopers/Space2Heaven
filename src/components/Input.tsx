@@ -1,22 +1,17 @@
-interface InputProps {
-    title: string;
-    value: string;
-    placeholder?: string; // Optional prop
-    type: string;
-    // setValue: (value: string) => void; // Improved naming for clarity
-}
+import { InputProps } from "@/types";
 
-const Input = ({ title, value, placeholder = "", type }: InputProps) => {
+const Input = ({ title, name, value, placeholder = "", type, onChange }: InputProps) => {
     return (
-        <div className="mb-4"> {/* Added margin-bottom for spacing */}
-            <label htmlFor={title.toLowerCase()} className="block font-medium mb-1">
+        <div className="mb-4">
+            <label htmlFor={name} className="block font-medium mb-1">
                 {title}
             </label>
             <input
                 type={type}
-                id={title.toLowerCase()}
+                id={name}
+                name={name}
                 value={value}
-                // onChange={(e) => setValue(e.target.value)}
+                onChange={onChange}
                 className="input-class"
                 placeholder={placeholder}
                 required

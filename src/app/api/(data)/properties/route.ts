@@ -18,20 +18,29 @@ export const GET = async (req: Request) => {
     }
 
     try {
-        const data = await PropertyModel.findById(id);
+        const matchingData = await PropertyModel.findById(id);
 
-        if (!data) {
+        if (!matchingData) {
             return NextResponse.json(
                 { error: "Property not found." },
                 {
                     status: 404,
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    },
                 }
             );
         }
 
+        const similarData = await PropertyModel.find({
+            propertyType: matchingData.propertyType,
+            _id: { $ne: id }
+        });
+
+
         return NextResponse.json(
-            { data },
+            { matchingData, similarData },
             {
                 status: 200,
                 headers: { "Content-Type": "application/json" },
@@ -47,4 +56,5 @@ export const GET = async (req: Request) => {
             }
         );
     }
-};
+}
+

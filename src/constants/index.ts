@@ -63,3 +63,15 @@ export const menuBarOptions = [
     },
 ]
 
+export const authTabData = [
+    {
+        value: "users",
+        title: "Users",
+        description: "This is for Users to have a better experience.",
+    },
+    {
+        value: "admins",
+        title: "Admin",
+        description: "Only for Admins",
+    },
+]

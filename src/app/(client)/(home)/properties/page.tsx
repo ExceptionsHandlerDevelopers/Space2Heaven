@@ -9,21 +9,28 @@ import { useEffect, useState, Suspense } from "react";
 
 const PropertiesPage = () => {
     const filterTypes = ["All", "Villa", "House", "Flat"] as const;
-    const searchParams = new URLSearchParams(window.location.search);
-    const id = searchParams.get("id");
-
+    
     const [data, setData] = useState<Property[]>([]);
     const [filteredData, setFilteredData] = useState<Property[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [selectedFilter, setSelectedFilter] = useState<(typeof filterTypes)[number]>("All");
+    const [id, setId] = useState<string | null>(null);
+
+    useEffect(() => {
+        // Check if we're in the browser environment before accessing `window`
+        if (typeof window !== "undefined") {
+            const searchParams = new URLSearchParams(window.location.search);
+            setId(searchParams.get("id"));
+        }
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
                 const response = await axios.get<Property[]>("/api/");
-
+                
                 if (response && Array.isArray(response.data)) {
                     setData(response.data);
                     setFilteredData(response.data);
@@ -39,7 +46,7 @@ const PropertiesPage = () => {
         };
         fetchData();
     }, []);
-
+    
     useEffect(() => {
         const filterProperties = () => {
             if (selectedFilter === "All") {
@@ -51,9 +58,9 @@ const PropertiesPage = () => {
         };
         filterProperties();
     }, [selectedFilter, data]);
-
+    
     const handleFilterChange = (value: (typeof filterTypes)[number]) => setSelectedFilter(value);
-
+    
     if (loading) return <Loader />;
     if (error) return <p className="text-center text-red-600">{error}</p>;
 

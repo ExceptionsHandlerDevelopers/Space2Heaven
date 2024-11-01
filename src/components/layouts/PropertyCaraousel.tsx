@@ -32,7 +32,7 @@ const PropertyCarousel = ({ data, loading }: PropertyCarouselProps) => {
         >
             <CarouselContent>
                 {data.slice(0, 6).map(({ _id, propertyType, price, images, rooms, features, yearBuilt, area, location }) => (
-                    <CarouselItem key={_id} className={`basis-1 md:basis-1/2 lg:basis-1/3 ${pathname === "/" ? "xl:basis-1/4" : null}`}>
+                    <CarouselItem key={_id} className={`basis-full md:basis-1/2 lg:basis-1/3 ${pathname === "/" ? "xl:basis-1/4" : null}`}>
                         <PropertyCard
                             id={_id}
                             isLoading={loading}

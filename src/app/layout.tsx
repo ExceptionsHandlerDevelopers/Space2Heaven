@@ -3,8 +3,8 @@ import "./globals.css";
 
 
 export const metadata: Metadata = {
-  title: "Space2Haven",
-  description: "Find your perfect space with Space2Haven – your trusted partner in buying and selling properties tailored just for you.",
+  title: "Space2Heaven",
+  description: "Find your perfect space with Space2Heaven – your trusted partner in buying and selling properties tailored just for you.",
   icons:{
     icon: "/logo.svg"
   }

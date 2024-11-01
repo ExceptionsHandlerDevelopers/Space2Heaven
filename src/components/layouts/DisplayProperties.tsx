@@ -3,7 +3,7 @@ import PropertyCard from "../PropertyCard"
 
 const DisplayProperties = ({data, loading}:{data:Property[], loading:boolean}) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-center justify-center">
                     {data && data.map(({ _id, propertyType, price, images, rooms, features, yearBuilt, area, location }) => (
                         <PropertyCard
                             key={_id}

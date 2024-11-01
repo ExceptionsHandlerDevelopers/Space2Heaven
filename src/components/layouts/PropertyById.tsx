@@ -46,7 +46,7 @@ const PropertyById = ({ id }: { id: string }) => {
 
 
     return (
-        <section className="min-h-screen w-full flex flex-col items-center my-14 px-4">
+        <section className="min-h-screen w-full flex flex-col items-center my-20 px-4">
             {/* Main Property Carousel */}
             <div className="w-full max-w-6xl mb-10">
                 {images && <DisplayCarousel images={images} />}

@@ -5,24 +5,22 @@ import { Property } from "@/types"
 import axios from "axios"
 
 const PropertyPane = () => {
-
   const [data, setData] = useState<Property[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-      const fetchData = async () => {
-          try {
-              setLoading(true)
-              const response = await axios.get<Property[]>("/api")
-              setData(response?.data)
-              setLoading(false)
-          } catch (error) {
-              console.error("Error fetching data:", error);
-          } finally {
-              setLoading(false)
-          }
+    const fetchData = async () => {
+      try {
+        setLoading(true)
+        const response = await axios.get<Property[]>("/api")
+        setData(response?.data)
+      } catch (error) {
+        console.error("Error fetching data:", error)
+      } finally {
+        setLoading(false)
       }
-      fetchData()
+    }
+    fetchData()
   }, [])
 
   return (
@@ -37,7 +35,7 @@ const PropertyPane = () => {
       </div>
       <PropertyCaraousel data={data} loading={loading} />
     </section>
-
   )
 }
+
 export default PropertyPane

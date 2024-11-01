@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { authTabData } from "@/constants"
+import { useState, useEffect } from "react";
+import { authTabData } from "@/constants";
 import {
     Card,
     CardContent,
@@ -9,36 +9,40 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
-} from "@/components/ui/tabs"
-import Input from "../Input"
+} from "@/components/ui/tabs";
+import Input from "../Input";
 
 type FormTabsProps = {
-    userType: string
-    type: string
-}
-
+    userType: string;
+    type: string;
+};
 
 const FormTabs: React.FC<FormTabsProps> = ({ userType, type }) => {
-    const [formData, setFormData] = useState({ email: "", password: "" })
+    const [formData, setFormData] = useState({ email: "", password: "" });
+    const [activeTab, setActiveTab] = useState(userType);
+
+    useEffect(() => {
+        setActiveTab(userType);
+    }, [userType]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setFormData((prev) => ({ ...prev, [name]: value }))
-    }
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        console.log("Form Data Submitted:", formData)
-    }
+        e.preventDefault();
+        console.log("Form Data Submitted:", formData);
+    };
 
     return (
-        <Tabs defaultValue={userType} className="w-[400px]">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-[400px]">
             <TabsList className="grid w-full grid-cols-2">
                 {authTabData.map(({ value, title }) => (
                     <TabsTrigger key={value} value={value}>
@@ -82,7 +86,7 @@ const FormTabs: React.FC<FormTabsProps> = ({ userType, type }) => {
                 </TabsContent>
             ))}
         </Tabs>
-    )
-}
+    );
+};
 
-export default FormTabs
+export default FormTabs;

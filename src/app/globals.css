@@ -119,10 +119,10 @@ body {
 
   /* Property Card Styles */
   .property-card-styles{
-    @apply relative block h-[300px] md:h-[350px] lg:h-[400px] max-w-md rounded-lg overflow-hidden shadow-lg border border-gray-200 cursor-pointer;
+    @apply relative block h-[300px] md:h-[350px] lg:h-[400px] max-w-full lg:max-w-md rounded-lg overflow-hidden shadow-lg border border-gray-200 cursor-pointer;
   }
   .property-card-tag{
-    @apply absolute top-2 left-2 bg-burgundy text-white text-xs px-3 py-1 rounded-full z-50;
+    @apply absolute top-2 left-2 bg-burgundy text-white text-xs px-3 py-1 rounded-full z-10;
   }
   .property-card-content{
     @apply text-white pt-12 p-4 absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/70 to-transparent;

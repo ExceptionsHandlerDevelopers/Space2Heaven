@@ -1,36 +1,35 @@
 "use client";
 
-import { DisplayProperties, Loader, PropertyById } from "@/components";
+import { DisplayProperties, Loader, LoaderLayout, PropertyById } from "@/components";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Property } from "@/types";
 import axios from "axios";
 import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const PropertiesPage = () => {
     const filterTypes = ["All", "Villa", "House", "Flat"] as const;
-    
+
     const [data, setData] = useState<Property[]>([]);
     const [filteredData, setFilteredData] = useState<Property[]>([]);
+    const [displayedData, setDisplayedData] = useState<Property[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [selectedFilter, setSelectedFilter] = useState<(typeof filterTypes)[number]>("All");
-    const [id, setId] = useState<string | null>(null);
+    const [page, setPage] = useState(1);
+    const itemsPerPage = 6;
 
-    useEffect(() => {
-        // Check if we're in the browser environment before accessing `window`
-        if (typeof window !== "undefined") {
-            const searchParams = new URLSearchParams(window.location.search);
-            setId(searchParams.get("id"));
-        }
-    }, []);
+    const searchParams = useSearchParams();
+    const id = searchParams.get("id");
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
                 const response = await axios.get<Property[]>("/api/");
-                
                 if (response && Array.isArray(response.data)) {
                     setData(response.data);
                     setFilteredData(response.data);
@@ -46,28 +45,35 @@ const PropertiesPage = () => {
         };
         fetchData();
     }, []);
-    
+
     useEffect(() => {
         const filterProperties = () => {
-            if (selectedFilter === "All") {
-                setFilteredData(data);
-            } else {
-                const filtered = data.filter(item => item.propertyType === selectedFilter);
-                setFilteredData(filtered);
-            }
+            const filtered = selectedFilter === "All" ? data : data.filter((item) => item.propertyType === selectedFilter);
+            setFilteredData(filtered);
+            setDisplayedData(filtered.slice(0, itemsPerPage));
+            setPage(1);
         };
         filterProperties();
     }, [selectedFilter, data]);
-    
+
     const handleFilterChange = (value: (typeof filterTypes)[number]) => setSelectedFilter(value);
-    
+
+    const loadMoreData = () => {
+        setPage((prevPage) => prevPage + 1);
+        const newPageData = filteredData.slice(page * itemsPerPage, (page + 1) * itemsPerPage);
+        setDisplayedData((prevData) => [...prevData, ...newPageData]);
+    };
+
+    // const handleCardClick = (propertyId: string) => {
+    //     router.push(`/properties?id=${propertyId}`);
+    // };
+
     if (loading) return <Loader />;
     if (error) return <p className="text-center text-red-600">{error}</p>;
 
-    // Render Property details if an ID is specified in the query
     if (id) {
         return (
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<Skeleton className="h-[300px] md:h-[350px] lg:h-[400px] max-w-sm rounded-xl" />}>
                 <PropertyById id={id} />
             </Suspense>
         );
@@ -92,7 +98,17 @@ const PropertiesPage = () => {
                     <h1 className="text-2xl font-semibold">Discover Your Dream Property</h1>
                     <p className="text-gray-600">Browse through our exclusive listings to find your next home.</p>
                 </header>
-                <DisplayProperties data={filteredData} loading={loading} />
+                <InfiniteScroll
+                    dataLength={displayedData.length}
+                    next={loadMoreData}
+                    hasMore={displayedData.length < filteredData.length}
+                    loader={<LoaderLayout />}
+                >
+                    <DisplayProperties
+                        data={displayedData}
+                        loading={loading}
+                    />
+                </InfiniteScroll>
             </main>
         </section>
     );

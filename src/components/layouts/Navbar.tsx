@@ -17,7 +17,7 @@ const Navbar = () => {
 
       <div className="flex-between gap-5">
         <MenuBar />
-        <Link href="/auth" className="w-6 h-6">
+        <Link href="/auth/signin" className="w-6 h-6">
           <Image src="/icons/user.svg"
             alt="user"
             width={30}

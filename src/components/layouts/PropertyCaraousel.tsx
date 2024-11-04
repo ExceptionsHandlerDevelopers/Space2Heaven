@@ -13,6 +13,7 @@ import Link from "next/link";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { Property } from "@/types";
 import { usePathname } from "next/navigation";
+import { Skeleton } from "../ui/skeleton";
 
 interface PropertyCarouselProps {
     data: Property[];
@@ -31,28 +32,37 @@ const PropertyCarousel = ({ data, loading }: PropertyCarouselProps) => {
             onMouseLeave={plugin.current.reset}
         >
             <CarouselContent>
-                {data.slice(0, 6).map(({ _id, propertyType, price, images, rooms, features, yearBuilt, area, location }) => (
-                    <CarouselItem key={_id} className={`basis-full md:basis-1/2 lg:basis-1/3 ${pathname === "/" ? "xl:basis-1/4" : null}`}>
-                        <PropertyCard
-                            id={_id}
-                            isLoading={loading}
-                            imageSrc={images[0]}
-                            price={price}
-                            features={features.join(" | ")}
-                            rooms={rooms.bedrooms}
-                            tag={propertyType}
-                            year={yearBuilt}
-                            area={area}
-                            location={location}
-                        />
-                    </CarouselItem>
-                ))}
-
+                {loading ?
+                    Array.from({ length: 6 }).map((_, index) => (
+                        <CarouselItem key={index} className={`basis-full md:basis-1/2 lg:basis-1/3 ${pathname === "/" ? "xl:basis-1/4" : null}`}>
+                            <Skeleton className="h-[300px] md:h-[350px] lg:h-[400px] max-w-sm rounded-xl" />
+                        </CarouselItem>
+                    ))
+                    :
+                    data.slice(0, 6).map(({ _id, propertyType, price, images, rooms, features, yearBuilt, area, location }) => (
+                        <CarouselItem key={_id} className={`basis-full md:basis-1/2 lg:basis-1/3 ${pathname === "/" ? "xl:basis-1/4" : null}`}>
+                            {loading ? <Skeleton className="h-[300px] md:h-[350px] lg:h-[400px] max-w-sm rounded-xl" />
+                                : <PropertyCard
+                                    id={_id}
+                                    // isLoading={loading}
+                                    imageSrc={images[0]}
+                                    price={price}
+                                    features={features.join(" | ")}
+                                    rooms={rooms.bedrooms}
+                                    tag={propertyType}
+                                    year={yearBuilt}
+                                    area={area}
+                                    location={location}
+                                />
+                            }
+                        </CarouselItem>
+                    ))
+                }
                 {/* Show "More" link if enabled */}
                 {data.length > 6 && (
                     <CarouselItem className="basis-2/3 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                        <div className="flex items-center justify-center h-full w-full text-center rounded-lg overflow-hidden shadow-lg border border-gray-200 scale-95 hover:scale-100 transition duration-500">
-                            <Link href="/properties" className="hover:text-red-600 flex items-center gap-2">
+                        <div className="flex items-center justify-center h-full w-full text-center rounded-lg overflow-hidden shadow-lg border border-gray-200">
+                            <Link href="/properties" className="hover:text-red-600 flex items-center gap-2 scale-100 hover:scale-110 transition duration-500">
                                 More
                                 <ArrowRightIcon />
                             </Link>

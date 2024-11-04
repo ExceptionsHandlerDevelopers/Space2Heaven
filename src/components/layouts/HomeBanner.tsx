@@ -3,7 +3,7 @@ import SelectService from "./SelectService"
 
 const HomeBanner = () => {
     return (
-        <section className="relative w-full h-80 md:h-96 lg:h-[500px] overflow-hidden">
+        <section className="relative w-full h-96 md:h-[450px] lg:h-[700px] overflow-hidden">
             <Image
                 src="/images/banner.webp"
                 alt="Banner"
@@ -13,7 +13,7 @@ const HomeBanner = () => {
                 priority
             />
             {/* Centered Text Overlay */}
-            <div className="absolute inset-0 flex-center bg-black bg-opacity-50 flex-col gap-3">
+            <div className="absolute inset-0 flex-center bg-black bg-opacity-20 flex-col gap-3">
                 <div className="text-center px-4">
                     <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white">
                         Welcome to Space2Heaven

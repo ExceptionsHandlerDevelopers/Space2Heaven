@@ -24,6 +24,13 @@ const MenuBar = () => {
                 </MenubarContent>
             </MenubarMenu> */}
 
+            <MenubarMenu>
+                <MenubarContent>
+                    <MenubarItem>
+                        <Link href="/about">About</Link>
+                    </MenubarItem>
+                </MenubarContent>
+            </MenubarMenu>
             {/* Dynamic Menu Items */}
             {menuBarOptions.map(({ title, options }, index) => (
                 <MenubarMenu key={index}>
@@ -39,13 +46,6 @@ const MenuBar = () => {
             ))}
 
             {/* About Link as a Separate Menu */}
-            <MenubarMenu>
-                <MenubarContent>
-                    <MenubarItem>
-                        <Link href="/about">About</Link>
-                    </MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
         </Menubar>
     );
 };

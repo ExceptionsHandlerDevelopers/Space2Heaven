@@ -26,7 +26,7 @@ export interface PropertyCardProps {
   year: number,
   location: string,
   area: string,
-  isLoading: boolean
+  // isLoading: boolean
 }
 
 export interface PropertyFormValues {
@@ -67,6 +67,6 @@ export interface InputProps {
   name: string;
   value: string;
   placeholder?: string;
-  type: string;
+  type?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

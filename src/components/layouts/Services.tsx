@@ -34,7 +34,7 @@ const ServiceCard = ({ imageSrc, title, description, buttonText }: ServiceCardPr
 
 const Services = () => {
   return (
-    <section className="min-h-[45vh] flex flex-col items-center py-8 px-4 md:px-8 lg:px-16 bg-gray-100" id="services">
+    <section className="min-h-[50vh] flex-center flex-col py-8 px-4 md:px-8 lg:px-16 bg-gray-100" id="services">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-6">Our Services</h1>
 
       <div className="grid gap-6 xl:grid-cols-3 w-full max-w-7xl">

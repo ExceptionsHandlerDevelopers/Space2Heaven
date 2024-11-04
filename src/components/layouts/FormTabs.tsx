@@ -41,7 +41,6 @@ const FormTabs: React.FC<FormTabsProps> = ({ userType, pageType }) => {
         e.preventDefault();
         console.log("Form Data Submitted:", formData);
     };
-    console.log("Type: ", pageType);
 
     return (
         <>
@@ -94,7 +93,9 @@ const FormTabs: React.FC<FormTabsProps> = ({ userType, pageType }) => {
             </Tabs>
             <p className="text-sm flex-center gap-2">
                 {pageType === "signup" ? "Already have account?" : "Don't have account?"}
-                <Link href={"/auth/signup"}>{pageType === "signup" ? "Sign In" : "Sign Up"}</Link>
+                <Link href={`/auth/${pageType === "signup" ? "signin" : "signup"}`}>
+                {pageType === "signup" ? "Sign In" : "Sign Up"}
+                </Link>
             </p>
         </>
     );

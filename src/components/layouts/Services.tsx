@@ -1,14 +1,16 @@
 import Image from "next/image";
 import FormDialogBox from "./FormDialogBox";
+import Link from "next/link";
 
 interface ServiceCardProps {
   imageSrc: string;
   title: string;
   description: string;
   buttonText: string;
+  url?: string;
 }
 
-const ServiceCard = ({ imageSrc, title, description, buttonText }: ServiceCardProps) => (
+const ServiceCard = ({ imageSrc, title, description, buttonText, url = "/" }: ServiceCardProps) => (
   <div className="flex-center flex-col md:flex-row xl:flex-col gap-4 p-6 bg-white shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300 text-center md:text-left lg:text-center">
     {/* Image on the left or top */}
     <div className="flex-shrink w-full md:w-1/2 xl:w-full h-50 md:h-60">
@@ -25,9 +27,14 @@ const ServiceCard = ({ imageSrc, title, description, buttonText }: ServiceCardPr
     <div className="flex-grow flex-center flex-col">
       <h2 className="text-lg lg:text-xl font-semibold text-gray-800">{title}</h2>
       <p className="text-gray-600 mt-2 text-sm lg:text-base text-center md:text-left lg:text-center">{description}</p>
-      <button className="btn-class">
-        {buttonText}
-      </button>
+      {title === "Buy a Property" ?
+        <Link href={url} className="btn-class">
+          {buttonText}
+        </Link>
+        : <div className="mt-8 w-full flex justify-center">
+          <FormDialogBox />
+        </div>
+      }
     </div>
   </div>
 );
@@ -40,21 +47,22 @@ const Services = () => {
       <div className="grid gap-6 xl:grid-cols-3 w-full max-w-7xl">
         <ServiceCard
           imageSrc="/images/buying.svg"
-          title="Property Buying"
+          title="Buy a Property"
           description="Find the perfect property with our expert guidance and tailored solutions."
-          buttonText="Learn More"
+          buttonText="Browse Property"
+          url="/properties"
         />
         <ServiceCard
           imageSrc="/images/interior.svg"
-          title="Interior Design"
+          title="Design Interior"
           description="Bring your dream space to life with our professional interior design services."
-          buttonText="Explore Design"
+          buttonText="Get in Touch"
         />
         <ServiceCard
           imageSrc="/images/selling.svg"
           title="Property Selling"
           description="Sell your property with ease and confidence through our reliable platform."
-          buttonText="Get Started"
+          buttonText="Get in Touch"
         />
       </div>
 

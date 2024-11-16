@@ -28,13 +28,9 @@ const Footer = () => {
 
           {/* Contact Details */}
           <div className="mt-4 md:mt-0 flex flex-col md:items-end gap-4 md:gap-2 text-center md:text-right">
-            <div>
-              <h1 className="text-xl md:text-2xl font-semibold">Shah Nawaz Qureshi</h1>
-              <b className="text-xs md:text-sm text-gray-400">Founder & CEO</b>
-            </div>
 
             <div className="flex flex-col items-center md:flex-row md:justify-end gap-2 md:gap-3">
-              <p className="text-xs md:text-sm text-gray-500 font-semibold md:text-wrap md:text-right leading-tight">
+              <p className="text-xs md:text-sm text-gray-400 font-semibold md:text-wrap md:text-right leading-tight">
                 4th Floor, Zenia Building,<br />
                 Hiranandani Business Park, Thane
               </p>

@@ -44,19 +44,11 @@ const LoaderLayout = ({ loaderType = "all" }: { loaderType?: string }) => {
 
             </section>
             :
-            <section className="min-h-screen w-full flex flex-col md:flex-row my-20 px-4 md:px-10">
-                <aside className="flex flex-col gap-6 md:gap-8 w-full md:w-1/4 lg:w-1/5 px-4 py-6 md:py-10 bg-white shadow-md rounded-lg h-fit">
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-full" />
-                </aside>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-center justify-center">
-                    {Array.from({ length: 6 }).map((_, index) => (
-                        <Skeleton key={index} className="h-[300px] md:h-[350px] lg:h-[400px] max-w-sm rounded-xl" />
-                    ))}
-                </div>
-            </section>
+            <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-2 items-center justify-center mt-2">
+                {Array.from({ length: 6 }).map((_, index) => (
+                    <Skeleton key={index} className="block h-[300px] md:h-[350px] lg:h-[400px] max-w-full lg:max-w-md rounded-lg shadow-lg border border-gray-200" />
+                ))}
+            </div>
         }
         </>
     )

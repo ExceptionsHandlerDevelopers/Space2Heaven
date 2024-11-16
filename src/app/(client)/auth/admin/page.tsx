@@ -1,0 +1,22 @@
+import { FormTabs } from "@/components";
+import Image from "next/image";
+import Link from "next/link";
+
+
+const AuthLayout = () => {
+
+    return (
+        <section className="min-h-screen w-full flex-center flex-col">
+            <Link href="/">
+                <Image src="/logo.svg"
+                    alt="Space2Heaven"
+                    width={50}
+                    height={50}
+                    className="max-sm:size-10 invert"
+                />
+            </Link>
+            <FormTabs />
+        </section>
+    )
+}
+export default AuthLayout

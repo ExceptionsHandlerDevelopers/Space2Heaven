@@ -65,20 +65,20 @@ export const menuBarOptions = [
 
 export const authTabData = [
     {
-        value: "users",
-        title: "Users",
-        description: "This is for Users to have a better experience.",
+        value: "signin",
+        title: "Sign In",
+        description: "Sign In as admin",
     },
     {
-        value: "admins",
-        title: "Admin",
-        description: "Only for Admins",
+        value: "signup",
+        title: "SignUp",
+        description: "Add new admin",
     },
 ]
 
 // privacyData.js
 export const privacyData = {
-    title: "Our Privacy Policies",
+    title: "Space2Heaven - Policies",
     lastUpdated: "October 31, 2024",
     introduction: [
         "This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.",
@@ -191,3 +191,26 @@ export const privacyData = {
         phone: "8976561551",
     },
 };
+
+export const dashboardData = [
+    {
+        link:"/admin/add-property",
+        title: "Add Property",
+        color: "red",
+    },
+    {
+        link:"/admin/add-property",
+        title: "Add Interior",
+        color: "blue",
+    },
+    {
+        link:"/properties",
+        title: "All Properties",
+        color: "emerald",
+    },
+    {
+        link:"/interiors",
+        title: "Interiors",
+        color: "purple",
+    },
+]

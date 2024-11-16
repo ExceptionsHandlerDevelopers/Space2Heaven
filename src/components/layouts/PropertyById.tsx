@@ -1,13 +1,16 @@
 "use client";
 import axios from "axios";
-import { Property } from "@/types";
+import { Admin, Property } from "@/types";
 import { useEffect, useState } from "react";
 import { DisplayCarousel, FormDialogBox, LoaderLayout, PropertyCaraousel } from "@/components";
+import { Trash2, UserRoundPen } from "lucide-react";
+import moment from "moment"
 
 const PropertyById = ({ id }: { id: string }) => {
     const [propertyData, setPropertyData] = useState<Property | null>(null);
     const [similarProperties, setSimilarProperties] = useState<Property[]>([]);
     const [loading, setLoading] = useState(false);
+    const [currentAdmin, setCurrentAdmin] = useState<Admin | null>(null);
 
     useEffect(() => {
         const fetchProperty = async () => {
@@ -28,7 +31,12 @@ const PropertyById = ({ id }: { id: string }) => {
         fetchProperty();
     }, [id]);
 
-    if (!propertyData) return <div className="flex-center text-2xl font-bold">Property not found.</div>;
+    useEffect(() => {
+        const adminDetails = localStorage.getItem("adminDetails");
+        setCurrentAdmin(adminDetails ? JSON.parse(adminDetails) : null);
+    }, []);
+
+    if (!propertyData) return <div className="min-h-screen flex-center text-2xl font-bold">Fetching Data...</div>;
 
     const {
         images,
@@ -40,9 +48,10 @@ const PropertyById = ({ id }: { id: string }) => {
         location = "Not specified",
         status = "Unknown",
         description = "No description available.",
-        price = "N/A"
+        price = "N/A",
+        updatedAt
     } = propertyData;
-    
+
     return (
         <section className="min-h-screen w-full flex-center flex-col my-20 px-4">
             {loading ? (
@@ -53,7 +62,13 @@ const PropertyById = ({ id }: { id: string }) => {
                         {images && <DisplayCarousel images={images} />}
                     </div>
                     <div className="w-full max-w-6xl space-y-6 bg-white p-6 rounded-lg shadow-md">
-                        <h1 className="text-xl lg:text-3xl font-bold text-left w-full">{title || "Title"}</h1>
+                        <div className="flex justify-between items-center w-full">
+                            <h1 className="text-xl lg:text-3xl font-bold text-left w-full">{title || "Title"}</h1>
+                            {currentAdmin && <div className="flex-center gap-2">
+                                <UserRoundPen size={20} color="green" />
+                                <Trash2 size={20} color="red" />
+                            </div>}
+                        </div>
                         <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
                             <h2 className="md:text-lg font-semibold">Rooms: {rooms?.bedrooms}</h2>
                             <h2 className="md:text-lg font-semibold">Baths: {rooms?.bathrooms}</h2>
@@ -65,10 +80,13 @@ const PropertyById = ({ id }: { id: string }) => {
                         <div className="text-gray-700">{features?.join(", ") || "No features listed."}</div>
 
                         {/* Property Info */}
+                        <div className="flex justify-between items-center w-full">
                         <div className="flex flex-wrap gap-4 items-center text-lg">
                             <h2 className="font-semibold">Location: {location || "Not specified"}</h2>
                             <span>Status: <strong>{status || "Unknown"}</strong></span>
-                            <h1 className="font-bold text-xl">Price: ${price || "N/A"}</h1>
+                            <h1 className="font-bold text-xl">Price: ₹ {price || "N/A"}</h1>
+                        </div>
+                        <p className="text-xs font-semibold text-gray-600">Last Updates : <span>{moment(updatedAt).fromNow()}</span></p>
                         </div>
 
                         <hr className="my-4" />

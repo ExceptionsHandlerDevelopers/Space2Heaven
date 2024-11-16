@@ -1,10 +1,12 @@
 // PropertiesPage.tsx
 import { Suspense } from "react";
-import { LoaderLayout, PropertiesPageContent } from "@/components";
+import { Loader, PropertiesPageContent } from "@/components";
 
 const PropertiesPage = () => {
     return (
-        <Suspense fallback={<LoaderLayout loaderType="all" />}>
+        <Suspense fallback={<section className="min-h-screen w-full flex-center">
+            <Loader />
+        </section>}>
             <PropertiesPageContent />
         </Suspense>
     );

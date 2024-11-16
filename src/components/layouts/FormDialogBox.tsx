@@ -10,10 +10,10 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import Loader from "../loaders/Loader";
+import { useToast } from "@/hooks/use-toast";
 
 const FormDialogBox = () => {
-
+    const { toast } = useToast()
     const [formData, setFormData] = useState({
         name: "",
         contact: "",
@@ -28,25 +28,28 @@ const FormDialogBox = () => {
             [name]: value,
         });
     };
-    const [msg, setMsg] = useState("")
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             setLoading(true)
-            setMsg("")
             const response = await axios.post("/api/", formData, {
                 headers: {
                     "Content-Type": "application/json",
                 }
             })
-            setLoading(false)
-            setMsg(response?.data?.msg)
+            toast({
+                description: response?.data?.msg
+            })
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                setMsg(error.response?.data?.error || "Unable to submit data. Something went wrong");
+                toast({
+                    description: error.response?.data?.error || "Unable to submit data. Something went wrong"
+                })
             } else {
-                setMsg("An unexpected error occurred.");
+                toast({
+                    description: "An unexpected error occurred."
+                })
             }
             console.error("Error submitting data:", error);
         } finally {
@@ -116,15 +119,13 @@ const FormDialogBox = () => {
                     <button
                         disabled={loading}
                         type="submit"
-                        className="btn-class w-full"
+                        className="btn-class w-full flex justify-center"
                     >
-                        {loading ? <Loader /> : "Submit"}
+                        {loading ? (<div className="w-6 h-6 loader-common-styles" />) : "Submit"}
                     </button>
-                    <p className="text-sm text-center">{msg}</p>
                 </form>
             </DialogContent>
         </Dialog>
-
     )
 }
 export default FormDialogBox

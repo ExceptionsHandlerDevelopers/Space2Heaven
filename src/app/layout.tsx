@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "@/components/ui/toaster"
 import "./globals.css";
 
 
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html>
       <body className="bg-sand-soft">
         {children}
+        <Toaster />
       </body>
     </html>
   );

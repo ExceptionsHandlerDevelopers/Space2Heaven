@@ -14,6 +14,7 @@ export interface Property {
   dimensions: string;
   status: string;
   description: string;
+  updatedAt:string
 }
 
 export interface PropertyCardProps {
@@ -31,16 +32,20 @@ export interface PropertyCardProps {
 
 export interface PropertyFormValues {
   title: string;
-  images: string[];
-  bedrooms: number;
-  bathrooms?: number;
+  images: File[];
+  rooms: {
+    bedrooms: number;
+    bathrooms: number;
+  }
   description: string;
   price: number;
   location: string;
-  street?: string;
-  city?: string;
-  state?: string;
-  postalCode?: string;
+  address: {
+    street?: string;
+    city?: string;
+    state?: string;
+    postalCode?: string;
+  };
   propertyType: string;
   serviceType: 'buy' | 'sell' | 'rent';
   status: 'available' | 'sold' | 'pending';
@@ -65,8 +70,20 @@ export interface Property {
 export interface InputProps {
   title: string;
   name: string;
-  value: string;
+  value: string | number | undefined;
   placeholder?: string;
   type?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export type AuthInputs = {
+  name?: string;
+  email: string;
+  password: string;
+  confirmPassword?: string;
+};
+
+export interface Admin {
+  name: string;
+  email: string;
 }

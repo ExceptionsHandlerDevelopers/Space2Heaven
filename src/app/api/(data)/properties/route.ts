@@ -6,8 +6,6 @@ export const GET = async (req: Request) => {
     // Extract `id` from the query parameters
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
-    console.log("URL: ", req.url);
-    console.log("ID: ", id);
 
     if (!id) {
         return NextResponse.json(

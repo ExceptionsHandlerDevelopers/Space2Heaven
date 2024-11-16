@@ -7,10 +7,9 @@ const HomeBanner = () => {
             <Image
                 src="/images/banner.webp"
                 alt="Banner"
-                layout="fill"
-                objectFit="cover"
-                className="w-full h-full"
+                fill
                 priority
+                className="w-full h-full object-cover"
             />
             {/* Centered Text Overlay */}
             <div className="absolute inset-0 flex-center bg-black bg-opacity-20 flex-col gap-3">

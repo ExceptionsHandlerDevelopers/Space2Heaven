@@ -40,7 +40,7 @@ export const POST = async (req: NextRequest) => {
             return NextResponse.json(
                 { error: "All fields are mandatory" },
                 {
-                    status: 400, // Use 400 for bad requests
+                    status: 400, 
                     headers: {
                         "Content-Type": "application/json",
                         "Access-Control-Allow-Origin": "*"

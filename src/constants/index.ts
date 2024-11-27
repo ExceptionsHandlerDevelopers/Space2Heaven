@@ -1,65 +1,25 @@
-export const sidebarLinks = [
-    {
-        route: "/",
-        label: "Home",
-        imgUrl: "/icons/Home.svg",
-    },
-    {
-        route: "/properties",
-        label: "Buy",
-        imgUrl: "/icons/buy.svg",
-    },
-    {
-        route: "/interior",
-        label: "Interior",
-        imgUrl: "/icons/buy.svg",
-    },
-    {
-        route: "/about",
-        label: "About",
-        imgUrl: "/icons/buy.svg",
-    },
-]
+import { Option } from "@/types";
 
 export const menuBarOptions = [
     {
-        title: "Buy",
-        options: [
-            {
-                option: "Home for sale",
-                link: "/properties"
-            },
-            {
-                option: "For sale by owner",
-                link: "/properties"
-            }
-        ]
+        option: "Home",
+        link: "/"
     },
     {
-        title: "Sell",
-        options: [
-            {
-                option: "Home for sale",
-                link: "/properties"
-            },
-            {
-                option: "For sale by owner",
-                link: "/properties"
-            }
-        ]
+        option: "Interior",
+        link: "/interior"
     },
     {
-        title: "Rent",
-        options: [
-            {
-                option: "Home for sale",
-                link: "/properties"
-            },
-            {
-                option: "For sale by owner",
-                link: "/properties"
-            }
-        ]
+        option: "Properties",
+        link: "/properties"
+    },
+    {
+        option: "EMI Calculator",
+        link: "/calculate-emi"
+    },
+    {
+        option: "About",
+        link: "/about"
     },
 ]
 
@@ -194,23 +154,173 @@ export const privacyData = {
 
 export const dashboardData = [
     {
-        link:"/admin/add-property",
+        link: "/admin/add-property",
         title: "Add Property",
-        color: "red",
+        color: "bg-red-500",
+        hover: "bg-red-600",
     },
     {
-        link:"/admin/add-property",
+        link: "/admin/add-property",
         title: "Add Interior",
-        color: "blue",
+        color: "bg-blue-500",
+        hover: "bg-blue-600",
     },
     {
-        link:"/properties",
+        link: "/properties",
         title: "All Properties",
-        color: "emerald",
+        color: "bg-emerald-500",
+        hover: "bg-emerald-600",
     },
     {
-        link:"/interiors",
-        title: "Interiors",
-        color: "purple",
+        link: "/admin/customers",
+        title: "Customers",
+        color: "bg-purple-500",
+        hover: "bg-purple-600",
     },
 ]
+
+export const servicesList = [
+    {
+        title: "Buy A Property",
+        value: "buyProperty"
+    },
+    {
+        title: "Interior Design",
+        value: "interiorDesign"
+    },
+]
+
+export const cityOptions: Option[] = [
+    {
+        label: "Bengaluru",
+        value: "bengaluru",
+        state: "Karnataka"
+    },
+    {
+        label: "Mumbai",
+        value: "mumbai",
+        state: "Maharastra"
+    },
+    {
+        label: "Delhi",
+        value: "delhi",
+        state: "Delhi"
+    },
+    {
+        label: "Hyderabad",
+        value: "hyderabad",
+        state: "Telangana"
+    },
+    {
+        label: "Chennai",
+        value: "chennai",
+        state: "Tamil Nadu"
+    },
+    {
+        label: "Kolkata",
+        value: "kolkata",
+        state: "West Bengal"
+    },
+    {
+        label: "Pune",
+        value: "pune",
+        state: "Maharastra"
+    },
+    // { label: "Ahmedabad", value: "ahmedabad" },
+    // { label: "Surat", value: "surat" },
+    // { label: "Jaipur", value: "jaipur" },
+    // { label: "Lucknow", value: "lucknow" },
+    // { label: "Kanpur", value: "kanpur" },
+    // { label: "Nagpur", value: "nagpur" },
+    // { label: "Indore", value: "indore" },
+    // { label: "Bhopal", value: "bhopal" },
+    // { label: "Visakhapatnam", value: "visakhapatnam" },
+    // { label: "Patna", value: "patna" },
+    // { label: "Vadodara", value: "vadodara" },
+    // { label: "Ghaziabad", value: "ghaziabad" },
+    // { label: "Ludhiana", value: "ludhiana" },
+    // { label: "Agra", value: "agra" },
+    // { label: "Nashik", value: "nashik" },
+    // { label: "Faridabad", value: "faridabad" },
+    // { label: "Meerut", value: "meerut" },
+    // { label: "Rajkot", value: "rajkot" },
+    // { label: "Amritsar", value: "amritsar" },
+    // { label: "Varanasi", value: "varanasi" },
+    // { label: "Srinagar", value: "srinagar" },
+    // { label: "Ranchi", value: "ranchi" },
+    // { label: "Coimbatore", value: "coimbatore" },
+    // { label: "Guwahati", value: "guwahati" },
+    // { label: "Chandigarh", value: "chandigarh" },
+    // { label: "Mysore", value: "mysore" },
+    // { label: "Kochi", value: "kochi" },
+    // { label: "Thiruvananthapuram", value: "thiruvananthapuram" },
+    // { label: "Jodhpur", value: "jodhpur" },
+    // { label: "Madurai", value: "madurai" },
+    // { label: "Raipur", value: "raipur" },
+    // { label: "Kota", value: "kota" },
+]
+
+export const services = [
+    {
+        imageSrc: "/icons/servicesIcons/propertyAdvisory.svg",
+        title: "Buy a Property",
+        url: "/properties",
+    },
+    {
+        imageSrc: "/icons/servicesIcons/tipsGuide.svg",
+        title: "Design Interior",
+        url: "/interior",
+    },
+    {
+        imageSrc: "/icons/servicesIcons/emiCalculator.svg",
+        title: "EMI Calculator",
+        url: "/calculate-emi",
+    },
+    {
+        imageSrc: "/icons/servicesIcons/tipsGuide.svg",
+        title: "Tips & Guides",
+        url: "/",
+    },
+    {
+        imageSrc: "/icons/servicesIcons/whatsHot.svg",
+        title: "What's new",
+        url: "/",
+    },
+];
+
+
+export const contentStyles = {
+    "home-properties": {
+        title: "Your Dream Home Awaits",
+        titleColor: "text-sand-soft",
+        hrColor: "bg-sand-soft2",
+        description:
+            "Discover your dream property with us. Explore a wide range of real estate options for every taste and budget.",
+        descriptionColor: "text-sand-soft",
+    },
+    "interior-self-intro": {
+        title: "Explore Interior Design",
+        titleColor: "text-sand-soft2",
+        hrColor: "bg-sand-soft2",
+        description:
+            "Get inspired by exquisite interior designs to elevate your living spaces.",
+        descriptionColor: "text-gray-300",
+    },
+    interior: {
+        title: "Explore Interior Design",
+        titleColor: "text-interior",
+        hrColor: "bg-interior",
+        description:
+            "Get inspired by exquisite interior designs to elevate your living spaces.",
+        descriptionColor: "text-gray-500",
+    },
+    "home-interior": {
+        title: "Welcome to Home Interiors",
+        titleColor: "text-home",
+        hrColor: "bg-interior-highlight",
+        description: "Experience the perfect blend of style and functionality.",
+        descriptionColor: "text-grey-2",
+    },
+};
+
+export const filterTypes = ["All", "Villa", "House", "Flat"];

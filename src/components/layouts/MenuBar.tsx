@@ -13,13 +13,14 @@ import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
 import { LayoutDashboard, LogOut, UserRoundCog } from "lucide-react";
 import { Admin } from "@/types";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const MenuBar = () => {
 
     const { toast } = useToast()
     const [currentAdmin, setCurrentAdmin] = useState<Admin | null>(null);
-    const router=useRouter()
+    const router = useRouter()
+    const pathname = usePathname()
 
     useEffect(() => {
         const adminDetails = localStorage.getItem("adminDetails");
@@ -42,9 +43,9 @@ const MenuBar = () => {
             console.error("Logout error:", error);
         }
     };
-
+    
     return (
-        <Menubar className="max-sm:hidden bg-transparent border-none">
+        <Menubar className="max-sm:hidden bg-transparent border-none flex items-center gap-4">
             {/* Admin Actions Menu */}
             {currentAdmin &&
                 <MenubarMenu>
@@ -72,26 +73,11 @@ const MenuBar = () => {
                     </MenubarContent>
                 </MenubarMenu>
             }
-
-            <MenubarMenu>
-                <MenubarContent>
-                    <MenubarItem>
-                        <Link href="/about">About</Link>
-                    </MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
             {/* Dynamic Menu Items */}
-            {menuBarOptions.map(({ title, options }, index) => (
-                <MenubarMenu key={index}>
-                    <MenubarTrigger aria-label={title}>{title}</MenubarTrigger>
-                    <MenubarContent>
-                        {options.map(({ option, link }, subIndex) => (
-                            <MenubarItem key={subIndex}>
-                                <Link href={link}>{option}</Link>
-                            </MenubarItem>
-                        ))}
-                    </MenubarContent>
-                </MenubarMenu>
+            {menuBarOptions.map(({ option, link }, index) => (
+                <Link key={index} href={link}
+                className={`text-sm font-semibold border-b-2 duration-500 hover:border-b-sand-soft ${pathname === link ? "border-b-sand-soft" : "border-b-transparent"}`}
+                >{option}</Link>
             ))}
 
             {/* About Link as a Separate Menu */}

@@ -9,32 +9,36 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
+import { servicesList } from "@/constants";
 
-const SelectService = () => {
+const DropDownList = () => {
   const router = useRouter();
-  const [selectedService, setSelectedService] = useState<"buyProperty" | "interiorDesign" | "">("");
+  const [selectedOption, setSelectedOption] = useState<"buyProperty" | "interiorDesign" | "">("");
 
   const handleSelectChange = (value: "buyProperty" | "interiorDesign") => {
-    setSelectedService(value); // Update the state with the selected value
+    setSelectedOption(value); // Update the state with the selected value
 
     if (value === "buyProperty") {
       router.push("/properties");
     } else if (value === "interiorDesign") {
-      router.push("/properties/interior");
+      router.push("/interior");
     }
   };
 
   return (
-    <Select onValueChange={handleSelectChange} value={selectedService}>
-      <SelectTrigger className="text-white w-[180px] border-grey-1 glassmorphism2">
+    <Select onValueChange={handleSelectChange} value={selectedOption}>
+      <SelectTrigger className="text-sand-soft w-[180px] border-grey-1 glassmorphism2">
         <SelectValue placeholder="Select Service" />
       </SelectTrigger>
       <SelectContent className="glassmorphism">
-        <SelectItem value="buyProperty">Buy A Property</SelectItem>
-        <SelectItem value="interiorDesign">Interior Design</SelectItem>
+        {
+          servicesList.map(({title, value}) => 
+            <SelectItem value={value} key={value}>{title}</SelectItem>
+          )
+        }
       </SelectContent>
     </Select>
   );
 };
 
-export default SelectService;
+export default DropDownList;

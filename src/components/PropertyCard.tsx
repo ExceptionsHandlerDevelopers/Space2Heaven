@@ -2,15 +2,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { PropertyCardProps } from '@/types';
 
-const PropertyCard = ({ id, imageSrc, price, features, rooms, tag, year, area, location }: PropertyCardProps) => {
+const PropertyCard = ({ id, imageSrc, price, features, configuration, tag, year, area, location, recommend }: PropertyCardProps) => {
 
     return (
         <Link href={`/properties?id=${id}`} className="property-card-styles">
 
             {/* Tag on top of the image */}
-            {tag && (
+            {recommend && (
                 <div className="property-card-tag">
-                    {tag}
+                    Recommended
                 </div>
             )}
 
@@ -27,11 +27,14 @@ const PropertyCard = ({ id, imageSrc, price, features, rooms, tag, year, area, l
 
             {/* Card Content */}
             <div className="property-card-content">
+            <div className="property-card-tag">
+                    {tag}
+                </div>
                 <h2 className="text-lg font-bold">
-                    {`${price} | ${rooms} BHK | Built in ${year}`}
+                    {`${price} | ${configuration} | Built in ${year}`}
                 </h2>
-                <p className="text-white/80 mt-1">{`Area: ${area} | ${location}`}</p>
-                <p className="text-white/80 mt-1">{features}</p>
+                <p className="text-sand-soft/80 mt-1">{`Area: ${area} | ${location}`}</p>
+                <p className="text-sand-soft/80 mt-1">{features}</p>
             </div>
         </Link>
     );

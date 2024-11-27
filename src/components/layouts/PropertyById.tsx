@@ -2,7 +2,7 @@
 import axios from "axios";
 import { Admin, Property } from "@/types";
 import { useEffect, useState } from "react";
-import { DisplayCarousel, FormDialogBox, LoaderLayout, PropertyCaraousel } from "@/components";
+import { DisplayCarousel, DialogBox, LoaderLayout, DynamicCarousel } from "@/components";
 import { Trash2, UserRoundPen } from "lucide-react";
 import moment from "moment"
 
@@ -41,14 +41,16 @@ const PropertyById = ({ id }: { id: string }) => {
     const {
         images,
         title = "Title",
-        rooms = { bedrooms: 0, bathrooms: 0 },
-        dimensions = "N/A",
+        configuration = "1 BHK",
         area = "N/A",
         features = [],
         location = "Not specified",
-        status = "Unknown",
         description = "No description available.",
         price = "N/A",
+        address = {
+            city: "",
+            state: "",
+        },
         updatedAt
     } = propertyData;
 
@@ -70,23 +72,28 @@ const PropertyById = ({ id }: { id: string }) => {
                             </div>}
                         </div>
                         <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-                            <h2 className="md:text-lg font-semibold">Rooms: {rooms?.bedrooms}</h2>
-                            <h2 className="md:text-lg font-semibold">Baths: {rooms?.bathrooms}</h2>
-                            <h2 className="md:text-lg font-semibold">Dimensions: {dimensions || "N/A"}</h2>
-                            <h2 className="md:text-lg font-semibold">Area: {area || "N/A"} sq.ft</h2>
+                            <h2 className="md:text-lg font-semibold">Configuration: {configuration}</h2>
+                            <h2 className="md:text-lg font-semibold">Area: {area || "N/A"}</h2>
                         </div>
 
                         {/* Property Features */}
-                        <div className="text-gray-700">{features?.join(", ") || "No features listed."}</div>
+                        <div className="">
+                            <h2 className="font-semibold">Amenities :</h2>
+                            <p className="text-gray-700">
+                                {features?.join(" | ") || "No features listed."}
+                            </p>
+                        </div>
 
                         {/* Property Info */}
                         <div className="flex justify-between items-center w-full">
-                        <div className="flex flex-wrap gap-4 items-center text-lg">
-                            <h2 className="font-semibold">Location: {location || "Not specified"}</h2>
-                            <span>Status: <strong>{status || "Unknown"}</strong></span>
-                            <h1 className="font-bold text-xl">Price: ₹ {price || "N/A"}</h1>
-                        </div>
-                        <p className="text-xs font-semibold text-gray-600">Last Updates : <span>{moment(updatedAt).fromNow()}</span></p>
+                            <div className="flex flex-wrap gap-4 items-center text-lg">
+                                <div className="flex items-center gap-2">
+                                    <h2 className="font-semibold">Location: {location || "Not specified"}</h2> |
+                                    <span className="text-xs font-semibold mt-1">{address.city},&nbsp;{address.state}</span>
+                                </div>
+                                <h1 className="font-bold text-xl">Price: ₹ {price || "N/A"}</h1>
+                            </div>
+                            <p className="text-xs font-semibold text-grey-1">Last Updates : <span>{moment(updatedAt).fromNow()}</span></p>
                         </div>
 
                         <hr className="my-4" />
@@ -94,12 +101,12 @@ const PropertyById = ({ id }: { id: string }) => {
                         {/* Property Description */}
                         <div>
                             <h1 className="text-xl font-semibold">About</h1>
-                            <p className="text-gray-600 leading-relaxed">{description || "No description available."}</p>
+                            <p className="text-grey-1 leading-relaxed">{description || "No description available."}</p>
                         </div>
 
                         {/* Form Dialog Box component */}
                         <div className="mt-8 w-full flex justify-center">
-                            <FormDialogBox />
+                            <DialogBox />
                         </div>
                     </div>
                 </>
@@ -109,7 +116,7 @@ const PropertyById = ({ id }: { id: string }) => {
             <hr className="my-8 w-full max-w-4xl" />
             <div className="w-full max-w-6xl">
                 <h1 className="text-2xl font-semibold mb-4">Similar Properties</h1>
-                <PropertyCaraousel data={similarProperties} loading={loading} />
+                <DynamicCarousel data={similarProperties} loading={loading} type="home-properties" />
             </div>
         </section>
     );

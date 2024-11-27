@@ -1,20 +1,21 @@
+
 export interface Property {
   title: string;
   propertyType: string;
   price: string;
   images: string[];
-  rooms: {
-    bedrooms: number;
-    bathrooms: number;
-  };
+  bhk: string
   features: string[];
   yearBuilt: number;
   area: string;
-  location: string;
+  address: {
+    city: string;
+    state: string;
+  }
   dimensions: string;
-  status: string;
   description: string;
-  updatedAt:string
+  recommend:boolean
+  updatedAt: string
 }
 
 export interface PropertyCardProps {
@@ -23,36 +24,29 @@ export interface PropertyCardProps {
   price: string,
   features: string,
   tag: string,
-  rooms: number,
+  configuration: string,
   year: number,
   location: string,
   area: string,
-  // isLoading: boolean
-}
+  recommend?:true | false
+  }
 
 export interface PropertyFormValues {
   title: string;
   images: File[];
-  rooms: {
-    bedrooms: number;
-    bathrooms: number;
-  }
+  configuration: string,
   description: string;
   price: number;
   location: string;
   address: {
-    street?: string;
     city?: string;
     state?: string;
-    postalCode?: string;
   };
   propertyType: string;
-  serviceType: 'buy' | 'sell' | 'rent';
-  status: 'available' | 'sold' | 'pending';
-  dimensions: string;
   area: string;
   yearBuilt: number;
   features: string[];
+  recommend:boolean
 }
 
 export interface Property {
@@ -60,7 +54,7 @@ export interface Property {
   propertyType: string;
   price: string;
   images: string[];
-  rooms: { bedrooms: number; bathrooms: number };
+  configuration: string,
   features: string[];
   yearBuilt: number;
   area: string;
@@ -86,4 +80,75 @@ export type AuthInputs = {
 export interface Admin {
   name: string;
   email: string;
+}
+
+export type Option = {
+  label: string;
+  value: string;
+  state: string;
+};
+
+export interface PropertyPaneProps {
+  contentType: "interior-self-intro" | "home-properties" | "home-interior" | "interior";
+}
+
+export interface DynamicCarouselProps {
+  type: "interior-self-intro" | "home-properties" | "home-interior" | "interior";
+  data: Property[] | string[]; // Property[] for properties, string[] for interior images
+  loading: boolean;
+}
+
+export interface ServiceItem {
+  imageSrc: string;
+  title: string;
+  url?: string;
+}
+
+export interface ServiceSectionProps {
+  title: string;
+  bgClassName?: string;
+  data: ServiceItem[];
+}
+
+export interface ServiceCardProps {
+  imageSrc: string;
+  title: string;
+  url?: string;
+}
+
+export interface FilterObject {
+  city: string;
+  state: string;
+  bhk: string;
+  budget: {
+    min: string;
+    max: string;
+  };
+  propertyType: string[];
+}
+
+export interface CityNStateProps {
+  cityValue: string | undefined
+  stateValue: string | undefined
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
+  locations: Option[]
+}
+
+export interface FilterProps {
+  filters: FilterObject;
+  setFilters: React.Dispatch<React.SetStateAction<FilterObject>>;
+}
+
+export type DialogBoxProps = {
+  filters?: FilterObject;
+  setFilters?: React.Dispatch<React.SetStateAction<FilterObject>>;
+  type?: string;
+}
+
+export interface CustomerDataTypes {
+  _id?: string;
+  name: string;
+  contact: string;
+  serviceType: "buyProperty" | "interiorDesign" | "sellProperty";
+  createdAt?: Date | undefined;
 }

@@ -11,7 +11,6 @@ const processFormData = async (req: Request): Promise<any> => {
     // Loop through all entries in the form data
     for (const [key, value] of formData.entries()) {
         if (key === "images" && value instanceof File) {
-            // Process image files
             const buffer = await value.arrayBuffer();
             const imgUrl = await addpropertyImages(Buffer.from(buffer));
             if (imgUrl) {
@@ -19,34 +18,27 @@ const processFormData = async (req: Request): Promise<any> => {
                 propertyData.images.push(imgUrl);
             }
         } else if (key.includes("[")) {
-            // Handle nested keys like "rooms[bedrooms]"
-            const match = key.match(/^([^\[]+)\[([^\]]+)\]$/); // Match "rooms[bedrooms]"
+            const match = key.match(/^([^\[]+)\[([^\]]+)\]$/);
             if (match) {
-                const parentKey = match[1]; // e.g., "rooms"
-                const childKey = match[2];  // e.g., "bedrooms"
+                const parentKey = match[1];
+                const childKey = match[2];
                 propertyData[parentKey] = propertyData[parentKey] || {};
                 propertyData[parentKey][childKey] = value;
             }
         } else {
-            // Handle all other form data fields
             propertyData[key] = value;
         }
     }
-    console.log("Processed Property Data: ", propertyData); // Log processed data
     return propertyData;
 };
 
 
 export const POST = async (req: Request) => {
     try {
-        // Process the form data
         const inputData = await processFormData(req);
-        console.log("Input Data: ", inputData);
 
-        // Connect to the database
         await connectDB();
 
-        // Save property data to MongoDB
         const addProperty = new PropertyModel(inputData);
         await addProperty.save();
 

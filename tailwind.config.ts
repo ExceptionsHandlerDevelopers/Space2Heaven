@@ -7,13 +7,21 @@ const config: Config = {
 		"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
+	safelist: [
+		'bg-red-500', 'hover:bg-red-600',
+		'bg-blue-500', 'hover:bg-blue-600',
+		'bg-emerald-500', 'hover:bg-emerald-600',
+		'bg-purple-500', 'hover:bg-purple-600',
+	],
 	theme: {
 		extend: {
 			colors: {
 				sand: {
 					soft: "#FAF9F6",
+					soft2: "#FFFAE6"
 				},
-				burgundy: "#800020",
+				home: "#800020",
+				interior: "#006A67",
 				grey: {
 					1: "#31363F"
 				},

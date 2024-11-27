@@ -17,14 +17,13 @@ const InteriorGallery = () => {
         <Carousel
             opts={{
                 align: "start",
-                loop: true,
             }}
             className="w-full max-w-7xl mx-auto my-20"
         >
             <CarouselContent>
                 {flattenedImages.map((img, index) => (
-                    <CarouselItem key={index} className="basis-1 md:basis-1/2 lg:basis-1/3 p-2">
-                        <div className="relative w-full h-80 sm:h-[30rem] scale-95 hover:scale-100 transition-transform duration-500">
+                    <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                        <div className="property-card-styles">
                             <Image
                                 src={img}
                                 alt={`Interior Design ${index + 1}`}

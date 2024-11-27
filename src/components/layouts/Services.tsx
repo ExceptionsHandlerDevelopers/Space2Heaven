@@ -1,73 +1,34 @@
-import Image from "next/image";
-import FormDialogBox from "./FormDialogBox";
-import Link from "next/link";
+import FormDialogBox from "./DialogBox";
+import { ServiceSectionProps } from "@/types";
+import ServiceCard from "./ServiceCard";
+import Pattern from "./Pattern";
 
-interface ServiceCardProps {
-  imageSrc: string;
-  title: string;
-  description: string;
-  buttonText: string;
-  url?: string;
-}
+const Services = ({ title, data, bgClassName = "bg-gradient-to-b from-home to-gray-800" }: ServiceSectionProps) => {
 
-const ServiceCard = ({ imageSrc, title, description, buttonText, url = "/" }: ServiceCardProps) => (
-  <div className="flex-center flex-col md:flex-row xl:flex-col gap-4 p-6 bg-white shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300 text-center md:text-left lg:text-center">
-    {/* Image on the left or top */}
-    <div className="flex-shrink w-full md:w-1/2 xl:w-full h-50 md:h-60">
-      <Image
-        src={imageSrc}
-        alt={title}
-        width={100}
-        height={100}
-        className="w-full h-full rounded-md object-cover"
-      />
-    </div>
-
-    {/* Content on the right or bottom */}
-    <div className="flex-grow flex-center flex-col">
-      <h2 className="text-lg lg:text-xl font-semibold text-gray-800">{title}</h2>
-      <p className="text-gray-600 mt-2 text-sm lg:text-base text-center md:text-left lg:text-center">{description}</p>
-      {title === "Buy a Property" ?
-        <Link href={url} className="btn-class">
-          {buttonText}
-        </Link>
-        : <div className="mt-8 w-full flex justify-center">
-          <FormDialogBox />
-        </div>
-      }
-    </div>
-  </div>
-);
-
-const Services = () => {
   return (
-    <section className="min-h-[50vh] flex-center flex-col py-8 px-4 md:px-8 lg:px-16 bg-gray-100" id="services">
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-6">Our Services</h1>
+    <section
+      className={`section-genral-class relative ${bgClassName}`}
+    >
+      <Pattern />
+      {/* Section Header */}
+      <div className="w-full flex-center flex-col py-8 px-4 md:px-8 lg:px-16 gap-8">
+        <h1 className="text-sand-soft2 header-class">
+          {title}
+        </h1>
+        <hr className="bg-sand-soft2" />
 
-      <div className="grid gap-6 xl:grid-cols-3 w-full max-w-7xl">
-        <ServiceCard
-          imageSrc="/images/buying.svg"
-          title="Buy a Property"
-          description="Find the perfect property with our expert guidance and tailored solutions."
-          buttonText="Browse Property"
-          url="/properties"
-        />
-        <ServiceCard
-          imageSrc="/images/interior.svg"
-          title="Design Interior"
-          description="Bring your dream space to life with our professional interior design services."
-          buttonText="Get in Touch"
-        />
-        <ServiceCard
-          imageSrc="/images/selling.svg"
-          title="Property Selling"
-          description="Sell your property with ease and confidence through our reliable platform."
-          buttonText="Get in Touch"
-        />
-      </div>
+        {/* Services Grid */}
+        <div className="grid gap-6 grid-cols-2 xl:grid-cols-5 w-full max-w-7xl">
+          {data.map((service, index) => (
+            <ServiceCard
+              key={index}
+              imageSrc={service.imageSrc}
+              title={service.title}
+              url={service.url}
+            />
+          ))}
+        </div>
 
-      {/* Form Dialog Box component */}
-      <div className="mt-8 w-full flex justify-center">
         <FormDialogBox />
       </div>
     </section>

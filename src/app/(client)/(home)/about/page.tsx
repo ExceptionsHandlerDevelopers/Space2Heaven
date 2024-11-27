@@ -4,10 +4,10 @@ import { privacyData } from '@/constants';
 const About = () => {
 
   return (
-    <section className="flex-center min-h-screen flex-col mt-20">
+    <section className="flex-center min-h-screen flex-col pt-20 bg-sand-soft bg-[url(/images/pattern.png)]">
        <div className="container mx-auto max-w-6xl px-6 py-12">
       {/* Title */}
-      <h1 className="text-3xl font-bold mb-4 text-center text-burgundy">{privacyData.title}</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center text-home">{privacyData.title}</h1>
       <hr className="my-2" />
       <p className="text-center text-sm text-gray-500 mb-10">Last updated: {privacyData.lastUpdated}</p>
 
@@ -79,8 +79,8 @@ const About = () => {
           {privacyData.cookies.types.map((cookie, index) => (
             <li key={index} className="border border-gray-300 rounded p-4">
               <h3 className="font-semibold text-lg">{cookie.name}</h3>
-              <p className="text-gray-600 mb-1">Type: {cookie.type}</p>
-              <p className="text-gray-600 mb-1">Administered by: {cookie.admin}</p>
+              <p className="text-grey-1 mb-1">Type: {cookie.type}</p>
+              <p className="text-grey-1 mb-1">Administered by: {cookie.admin}</p>
               <p className="text-gray-700">Purpose: {cookie.purpose}</p>
             </li>
           ))}

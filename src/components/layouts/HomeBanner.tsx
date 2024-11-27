@@ -1,11 +1,13 @@
 import Image from "next/image"
-import SelectService from "./SelectService"
+import DropDownList from "./DropDownList"
+import DialogBox from "./DialogBox"
 
-const HomeBanner = () => {
+
+const HomeBanner = ({ bannerType }: { bannerType: string }) => {
     return (
-        <section className="relative w-full h-96 md:h-[450px] lg:h-[700px] overflow-hidden">
+        <section className="relative w-full min-h-96 lg:min-h-screen overflow-hidden">
             <Image
-                src="/images/banner.webp"
+                src={`/images/${bannerType === "main" ? "homeBanner" : "interiorBanner"}.webp`}
                 alt="Banner"
                 fill
                 priority
@@ -14,14 +16,23 @@ const HomeBanner = () => {
             {/* Centered Text Overlay */}
             <div className="absolute inset-0 flex-center bg-black bg-opacity-20 flex-col gap-3">
                 <div className="text-center px-4">
-                    <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white">
-                        Welcome to Space2Heaven
+                    <h1 className="header-class leading-snug md:leading-relaxed"
+                    >
+                        {bannerType === "main"
+                            ? "Welcome to Space2Heaven"
+                            : "Transform to Elegant Interiors"}
                     </h1>
-                    <p className="mt-2 md:mt-4 text-base md:text-lg lg:text-xl text-white">
-                        Find your perfect home with ease and trust.
+                    <p className="mt-2 md:mt-4 text-base md:text-lg lg:text-xl text-gray-300 leading-8">
+                        {bannerType === "main" ?
+                            "Find your perfect home with ease and trust."
+                            : "Discover designs that blend style and comfort"
+                        }
                     </p>
                 </div>
-                <SelectService />
+                {bannerType === "interior" ?
+                    <DialogBox /> :
+                    <DropDownList />
+                }
             </div>
         </section>
     )

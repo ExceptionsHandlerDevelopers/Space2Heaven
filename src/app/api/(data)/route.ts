@@ -16,7 +16,7 @@ export const GET = async () => {
                 status: 200,
                 headers: {
                     "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"  // Set appropriate origin for production
+                    "Access-Control-Allow-Origin": "*"
                 },
             }
         );

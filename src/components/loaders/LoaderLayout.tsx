@@ -44,9 +44,9 @@ const LoaderLayout = ({ loaderType = "all" }: { loaderType?: string }) => {
 
             </section>
             :
-            <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-2 items-center justify-center mt-2">
-                {Array.from({ length: 6 }).map((_, index) => (
-                    <Skeleton key={index} className="block h-[300px] md:h-[350px] lg:h-[400px] max-w-full lg:max-w-md rounded-lg shadow-lg border border-gray-200" />
+            <div className="w-full grid grid-cols-full lg:grid-cols-3 xl:grid-cols-4 gap-2 items-center mt-2">
+                {Array.from({ length: 8 }).map((_, index) => (
+                    <Skeleton key={index} className="block h-[300px] md:h-[350px] lg:h-[400px] w-full max-w-full lg:max-w-md rounded-lg shadow-lg border border-gray-200" />
                 ))}
             </div>
         }

@@ -28,8 +28,9 @@ const FormTabs = () => {
     const router = useRouter()
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [secretKey, setSecretKey] = useState("")
     const { toast } = useToast()
-    const [showConfirmedPassword, setShowConfirmedPassword] = useState(false)
+    const [isHidden, setIsHidden] = useState(false)
     const [signupInputs, setSignupInputs] = useState<AuthInputs>({
         name: "",
         email: "",
@@ -57,43 +58,50 @@ const FormTabs = () => {
     };
 
     const adminAuth = async (path: string, formInput: object) => {
-        try {
-            setLoading(true)
+        if (secretKey === process.env.NEXT_PUBLIC_ADMIN_SECRET_KEY) {
+            try {
+                setLoading(true)
 
-            const response = await axios.post(`/api/auth/admin/${path}`, formInput, {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-
-            toast({
-                description: response?.data?.msg
-            })
-
-            if (path === "signup" && response?.statusText === "OK") {
-                setActiveTab("signin");
-            } else if (path === "signin" && response?.statusText === "OK") {
-                const adminDetails = response?.data;
-                toast({
-                    description: "Login successful! Redirecting to home page..."
+                const response = await axios.post(`/api/auth/admin/${path}`, formInput, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
                 })
-                if (adminDetails) {
-                    localStorage.setItem("adminDetails", JSON.stringify(adminDetails));
-                    router.push("/");
-                } else {
+
+                toast({
+                    description: response?.data?.msg
+                })
+
+                if (path === "signup" && response?.statusText === "OK") {
+                    setActiveTab("signin");
+                } else if (path === "signin" && response?.statusText === "OK") {
+                    const adminDetails = response?.data;
                     toast({
-                        description: "Unable to retrieve admin details",
+                        description: "Login successful! Redirecting to home page..."
                     })
+                    if (adminDetails) {
+                        localStorage.setItem("adminDetails", JSON.stringify(adminDetails));
+                        router.push("/admin/dashboard");
+                    } else {
+                        toast({
+                            description: "Unable to retrieve admin details",
+                        })
+                    }
                 }
+            } catch (error: any) {
+                console.log("Error : ", error);
+                const errorMessage = error?.response?.data?.error || error?.message || "An error occurred";
+                toast({
+                    description: errorMessage,
+                })
+            } finally {
+                setLoading(false)
             }
-        } catch (error: any) {
-            console.log("Error : ", error);
-            const errorMessage = error?.response?.data?.error || error?.message || "An error occurred";
+        } else {
             toast({
-                description: errorMessage,
+                description: "Access forbidden..!",
             })
-        } finally {
-            setLoading(false)
+            router.push("/")
         }
     }
 
@@ -105,7 +113,7 @@ const FormTabs = () => {
 
     return (
         <>
-            <h1 className="text-2xl font-bold text-center text-burgundy uppercase">
+            <h1 className="text-2xl font-bold text-center text-home uppercase">
                 Admin Only
             </h1>
             <Tabs value={activeTab}
@@ -129,7 +137,7 @@ const FormTabs = () => {
                                 {/* <CardTitle>{title}</CardTitle> */}
                                 <CardDescription>{description}</CardDescription>
                             </CardHeader>
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit} className="text-sm">
                                 <CardContent className="py-3 space-y-2">
                                     {activeTab === "signup" && <Input
                                         title="Name"
@@ -160,7 +168,7 @@ const FormTabs = () => {
                                             className="absolute right-4 top-10 bottom-0 h-fit"
                                             onClick={() => setShowPassword(!showPassword)}
                                             role="button"
-                                            aria-label="Toggle password visibility"
+                                            aria-label="Toggle for visibility"
                                         >
                                             {showPassword ? <Eye size={20}
                                             /> : <EyeOff size={20} />}
@@ -173,19 +181,38 @@ const FormTabs = () => {
                                                 title="Confirm Password"
                                                 value={signupInputs.confirmPassword}
                                                 onChange={handleInputChange}
-                                                type={showConfirmedPassword ? "text" : "password"}
+                                                type={isHidden ? "text" : "password"}
                                                 placeholder="Confirm Password"
                                             />
                                             <span
                                                 className="absolute right-4 top-10 bottom-0 h-fit"
-                                                onClick={() => setShowConfirmedPassword(!showConfirmedPassword)}
+                                                onClick={() => setIsHidden(!isHidden)}
                                                 role="button"
-                                                aria-label="Toggle password visibility"
+                                                aria-label="Toggle for visibility"
                                             >
-                                                {showConfirmedPassword ? <Eye size={20}
+                                                {isHidden ? <Eye size={20}
                                                 /> : <EyeOff size={20} />}
                                             </span>
                                         </div>}
+                                    <div className="flex w-full relative">
+                                        <Input
+                                            title="Secret Key"
+                                            name="secretKey"
+                                            value={secretKey}
+                                            placeholder="Enter secret key to verify"
+                                            type={isHidden ? "text" : "password"}
+                                            onChange={(e) => setSecretKey(e.target.value)}
+                                        />
+                                        <span
+                                            className="absolute right-4 top-10 bottom-0 h-fit"
+                                            onClick={() => setIsHidden(!isHidden)}
+                                            role="button"
+                                            aria-label="Toggle for visibility"
+                                        >
+                                            {isHidden ? <Eye size={20}
+                                            /> : <EyeOff size={20} />}
+                                        </span>
+                                    </div>
                                 </CardContent>
                                 <CardFooter>
                                     <button type="submit" className="btn-class w-full flex justify-center" disabled={loading}>

@@ -15,6 +15,9 @@ export const connectDB = async () => {
         const db = await connect(MONGODB_URL)
         isConnected = db.connections[0].readyState;
         console.log('Connected to MongoDB');
+        // await PropertyModel.insertMany(properties)
+        // console.log("Added Successfully!");
+        
     } catch (error) {
         console.error('Failed to connect to MongoDB', error);
         throw new Error('Failed to connect to MongoDB');

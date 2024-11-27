@@ -1,41 +1,79 @@
-"use client"
-import { useEffect, useState } from "react"
-import PropertyCaraousel from "./PropertyCaraousel"
-import { Property } from "@/types"
-import axios from "axios"
+"use client";
 
-const PropertyPane = () => {
-  const [data, setData] = useState<Property[]>([])
-  const [loading, setLoading] = useState(true)
+import { useEffect, useState } from "react";
+import { Property, PropertyPaneProps } from "@/types";
+import axios from "axios";
+import { DynamicCarousel, Pattern } from "..";
+import { interiorDesign } from "@/constants/sampleData";
+import { contentStyles } from "@/constants";
 
+const PropertyPane: React.FC<PropertyPaneProps> = ({ contentType }) => {
+  const [data, setData] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch data when contentType is "home-properties"
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-        const response = await axios.get<Property[]>("/api")
-        setData(response?.data)
-      } catch (error) {
-        console.error("Error fetching data:", error)
-      } finally {
-        setLoading(false)
-      }
+    if (contentType === "home-properties") {
+      const fetchData = async () => {
+        try {
+          setLoading(true);
+          const response = await axios.get<Property[]>("/api");
+          setData(response?.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();
     }
-    fetchData()
-  }, [])
+  }, [contentType]);
+
+  // Select the appropriate styles and content based on contentType
+  const {
+    title,
+    titleColor,
+    hrColor,
+    description,
+    descriptionColor,
+  } = contentStyles[contentType as keyof typeof contentStyles] || contentStyles["home-properties"];
 
   return (
-    <section className="min-h-[50vh] flex-center flex-col py-8 px-4 md:px-8 lg:px-16 xl:px-24">
+    <section
+      className={`section-genral-class relative ${contentType === "home-properties"
+        ? "bg-home" :
+        contentType === "home-interior" || contentType === "interior"
+          ? "bg-transparent" :
+          contentType === "interior-self-intro"
+            ? "bg-interior"
+            : "bg-home"
+        }`}
+    >
+      <Pattern />
+
+      {/* Header and Description */}
       <div className="flex-center gap-4 flex-col mb-6 lg:mb-10">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-burgundy">
-        Your Dream Home Awaits
-        </h1>
-        <p className="text-gray-600 text-sm md:text-base lg:text-lg max-w-2xl mx-auto text-center">
-          Discover your dream property with us. Explore a wide range of real estate options for every taste and budget.
+        <h1 className={`header-class ${titleColor}`}>{title}</h1>
+        <hr className={hrColor} />
+        <p
+          className={`text-sm md:text-base lg:text-lg max-w-xl mx-auto text-center ${descriptionColor}`}
+        >
+          {description}
         </p>
       </div>
-      <PropertyCaraousel data={data} loading={loading} />
-    </section>
-  )
-}
 
-export default PropertyPane
+      {/* Carousel */}
+      <DynamicCarousel
+        data={
+          contentType === "home-properties"
+            ? data
+            : interiorDesign.flatMap((obj) => Object.values(obj))
+        }
+        loading={contentType === "home-properties" ? loading : false}
+        type={contentType}
+      />
+    </section>
+  );
+};
+
+export default PropertyPane;

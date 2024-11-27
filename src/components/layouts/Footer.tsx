@@ -1,57 +1,64 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Globe, PhoneCall, Mail } from "lucide-react"
+import { Globe, PhoneCall, Mail } from "lucide-react";
+import Pattern from "./Pattern";
+import { menuBarOptions } from "@/constants";
 
 const Footer = () => {
   return (
-    <section className="bg-gray-800 text-white py-8">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between flex-col md:flex-row">
-          {/* Logo */}
-          <Link href="/" className="flex-center gap-2">
-            <Image src="/logo.svg"
-              alt="Space2Heaven"
-              width={50}
-              height={50}
-              className="max-sm:size-10"
-            />
-            <h1 className="text-2xl font-bold">Space2Heaven</h1>
-          </Link>
-
-          {/* Links */}
-          <div className="flex flex-col items-center lg:flex-row space-y-2 md:space-y-0 md:space-x-6">
-            <Link href="/about" className="hover:underline">About Us</Link>
-            <Link href="/" className="hover:underline">Services</Link>
-            <Link href="/properties" className="hover:underline">Properties</Link>
-            <Link href="/about" className="hover:underline">Contact</Link>
+    <section className="min-h-[40vh] bg-gray-800 text-sand-soft2 py-8 relative">
+      <Pattern />
+      <div className="container mx-auto py-8 px-4 md:px-8 lg:px-16 relative">
+        <div className="flex flex-col md:flex-row justify-between gap-8">
+          {/* Logo Section */}
+          <div className="items-start flex-center md:justify-start gap-4">
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/logo.svg"
+                alt="Space2Heaven"
+                width={50}
+                height={50}
+                className="max-sm:size-10"
+              />
+              <h1 className="text-2xl font-bold">Space2Heaven</h1>
+            </Link>
           </div>
 
-          {/* Contact Details */}
-          <div className="mt-4 md:mt-0 flex flex-col md:items-end gap-4 md:gap-2 text-center md:text-right">
+          {/* Links Section */}
+          <div className="flex flex-col items-center md:items-start lg:flex-row lg:justify-center space-y-4 lg:space-y-0 lg:space-x-8">
+            {menuBarOptions.map(({ option, link }, index) => (
+              <Link key={index} href={link}
+                className="text-sm font-semibold border-b-2 duration-500 border-b-transparent hover:border-b-sand-soft"
+              >{option}</Link>
+            ))}
+          </div>
 
-            <div className="flex flex-col items-center md:flex-row md:justify-end gap-2 md:gap-3">
-              <p className="text-xs md:text-sm text-gray-400 font-semibold md:text-wrap md:text-right leading-tight">
-                4th Floor, Zenia Building,<br />
+          {/* Contact Details Section */}
+          <div className="flex flex-col items-center md:items-end gap-6">
+            <div className="flex items-center gap-4 text-center md:text-right">
+              <p className="text-sm text-gray-400 leading-tight">
+                4th Floor, Zenia Building, <br />
                 Hiranandani Business Park, Thane
               </p>
               <Globe size={20} className="hidden md:inline-block" />
             </div>
 
-            <div className="flex flex-col items-center md:flex-row md:items-center justify-end gap-2 md:gap-3">
-              <div className="flex flex-col text-xs md:text-sm">
+            <div className="flex items-center gap-4">
+              <div className="text-sm">
                 <p>+91 897 651 1551</p>
                 <p>+91 828 698 4597</p>
               </div>
               <PhoneCall size={20} className="hidden md:inline-block" />
             </div>
 
-            <div className="flex flex-col items-center md:flex-row md:justify-end gap-2 md:gap-3">
-              <p className="text-xs md:text-sm">Hello@space2heaven.com</p>
+            <div className="flex items-center gap-4">
+              <p className="text-sm">Hello@space2heaven.com</p>
               <Mail size={20} className="hidden md:inline-block" />
             </div>
           </div>
         </div>
-        {/* Copyright */}
+
+        {/* Copyright Section */}
         <div className="mt-8 border-t border-gray-700 pt-4 text-center">
           <p className="text-sm">© {new Date().getFullYear()} Space2Heaven. All rights reserved.</p>
         </div>

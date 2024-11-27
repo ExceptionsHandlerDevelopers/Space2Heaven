@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Space2Heaven",
   description: "Find your perfect space with Space2Heaven – your trusted partner in buying and selling properties tailored just for you.",
-  icons:{
+  icons: {
     icon: "/logo.svg"
   }
 };
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html>
       <body className="bg-sand-soft">
-        {children}
+          {children}
         <Toaster />
       </body>
     </html>

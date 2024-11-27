@@ -3,7 +3,6 @@
 import {
   DisplayProperties,
   LoaderLayout,
-  Pattern,
   PropertyById,
 } from "@/components";
 import { FilterObject, Property } from "@/types";
@@ -77,12 +76,12 @@ const PropertiesPageContent = ({ search, filters }: { search: string, filters: F
 
   useEffect(() => {
     const searchData = data.filter((property) => property?.title.includes(search) 
-    && property?.address.city.includes(filters.state) 
-    && property?.bhk.includes(filters.bhk) 
-    && ((filters.budget.min === "" ||
-      parseInt(property.price, 10) >= parseInt(filters.budget.min, 10)) 
-      && (filters.budget.max === "" ||
-        parseInt(property.price, 10) <= parseInt(filters.budget.max, 10)))
+    // && property?.address.city.includes(filters.state) 
+    // && property?.bhk.includes(filters.bhk) 
+    // && ((filters.budget.min === "" ||
+    //   parseInt(property.price, 10) >= parseInt(filters.budget.min, 10)) 
+    //   && (filters.budget.max === "" ||
+    //     parseInt(property.price, 10) <= parseInt(filters.budget.max, 10)))
       // && property.propertyType.includes(filters.propertyType.map(item => item))
     );
     setSearchResults(searchData);
@@ -132,8 +131,7 @@ const PropertiesPageContent = ({ search, filters }: { search: string, filters: F
 
 
   return (
-    <section className="min-h-screen w-full flex-center flex-col md:flex-row px-4 md:px-10 relative">
-      <Pattern />
+    <section className="min-h-screen w-full flex-center flex-col md:flex-row px-4 md:px-10 bg-[url(/images/pattern.png)]">
       <main className="flex flex-col w-full p-4 md:p-6 gap-4">
         <h1 className="text-2xl font-semibold">Discover Your Dream Property</h1>
         <div className="flex items-center gap-4 w-full text-xs">

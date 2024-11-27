@@ -1,10 +1,8 @@
 import Image from "next/image";
-import Pattern from "./Pattern";
 
 const InteriorLayout = () => {
     return (
-        <section className="section-genral-class relative">
-            <Pattern />
+        <section className="section-genral-class bg-[url(/images/pattern.png)]">
             <div className="flex flex-col-reverse lg:flex-row items-center gap-8 lg:gap-12 mb-6 lg:mb-10">
                 {/* Text Section */}
                 <div className=" flex-center flex-col gap-8 flex-1">
@@ -17,7 +15,7 @@ const InteriorLayout = () => {
                     </p>
                 </div>
                 
-                <div className="relative w-full lg:w-auto h-64 md:h-80 lg:h-96 max-w-lg flex-shrink-0 flex-center">
+                <div className="relative w-full lg:w-auto h-64 md:h-80 lg:h-96 max-w-lg flex-shrink-0 flex-center flex-1">
                     <Image
                         src="/images/who-we-are.webp"
                         alt="self-intro"

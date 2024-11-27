@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Property, PropertyPaneProps } from "@/types";
 import axios from "axios";
-import { DynamicCarousel, Pattern } from "..";
+import { DynamicCarousel } from "..";
 import { interiorDesign } from "@/constants/sampleData";
 import { contentStyles } from "@/constants";
 
@@ -40,7 +40,7 @@ const PropertyPane: React.FC<PropertyPaneProps> = ({ contentType }) => {
 
   return (
     <section
-      className={`section-genral-class relative ${contentType === "home-properties"
+      className={`section-genral-class bg-[url(/images/pattern.png)] ${contentType === "home-properties"
         ? "bg-home" :
         contentType === "home-interior" || contentType === "interior"
           ? "bg-transparent" :
@@ -49,8 +49,6 @@ const PropertyPane: React.FC<PropertyPaneProps> = ({ contentType }) => {
             : "bg-home"
         }`}
     >
-      <Pattern />
-
       {/* Header and Description */}
       <div className="flex-center gap-4 flex-col mb-6 lg:mb-10">
         <h1 className={`header-class ${titleColor}`}>{title}</h1>

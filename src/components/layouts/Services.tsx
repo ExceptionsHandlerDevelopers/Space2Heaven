@@ -7,9 +7,9 @@ const Services = ({ title, data, bgClassName = "bg-gradient-to-b from-home to-gr
 
   return (
     <section
-      className={`section-genral-class relative ${bgClassName}`}
+      className={`section-genral-class bg-[url(/images/pattern.png)] ${bgClassName}`}
     >
-      <Pattern />
+      {/* <Pattern /> */}
       {/* Section Header */}
       <div className="w-full flex-center flex-col py-8 px-4 md:px-8 lg:px-16 gap-8">
         <h1 className="text-sand-soft2 header-class">

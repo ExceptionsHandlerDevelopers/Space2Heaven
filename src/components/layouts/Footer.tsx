@@ -1,13 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Globe, PhoneCall, Mail } from "lucide-react";
-import Pattern from "./Pattern";
 import { menuBarOptions } from "@/constants";
 
 const Footer = () => {
   return (
-    <section className="min-h-[40vh] bg-gray-800 text-sand-soft2 py-8 relative">
-      <Pattern />
+    <section className="min-h-[40vh] bg-gray-800 text-sand-soft2 py-8 bg-[url(/images/pattern.png)]">
       <div className="container mx-auto py-8 px-4 md:px-8 lg:px-16 relative">
         <div className="flex flex-col md:flex-row justify-between gap-8">
           {/* Logo Section */}

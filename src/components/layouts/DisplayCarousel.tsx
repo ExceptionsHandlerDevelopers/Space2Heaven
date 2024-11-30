@@ -27,7 +27,10 @@ const DisplayCarousel = ({ images }: { images: Array<string> }) => {
             <CarouselContent>
                 {images.map((image, index) => (
                     <CarouselItem key={index} className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden">
-                        <Image
+                        <Image 
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+ 
+loading='eager'
                             src={image}
                             alt={`Property Image ${index + 1}`}
                             fill

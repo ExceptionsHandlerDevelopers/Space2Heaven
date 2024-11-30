@@ -3,22 +3,28 @@ import { ServiceSectionProps } from "@/types";
 import ServiceCard from "./ServiceCard";
 import Pattern from "./Pattern";
 
-const Services = ({ title, data, bgClassName = "bg-gradient-to-b from-home to-gray-800" }: ServiceSectionProps) => {
-
+const Services = ({ 
+  title, 
+  data, 
+  bgClassName = "bg-gradient-to-b from-home to-gray-800" 
+}: ServiceSectionProps) => {
   return (
     <section
-      className={`section-genral-class bg-[url(/images/pattern.png)] ${bgClassName}`}
+      className={`section-general-class relative ${bgClassName} min-h-screen`}
     >
-      {/* <Pattern /> */}
-      {/* Section Header */}
-      <div className="w-full flex-center flex-col py-8 px-4 md:px-8 lg:px-16 gap-8">
-        <h1 className="text-sand-soft2 header-class">
+      {/* Background Pattern */}
+      <Pattern />
+
+      {/* Section Content */}
+      <div className="relative z-10 flex flex-col items-center py-8 px-4 md:px-8 lg:px-16 gap-8 w-full">
+        {/* Section Header */}
+        <h1 className="text-sand-soft2 text-3xl md:text-4xl lg:text-5xl font-bold text-center">
           {title}
         </h1>
         <hr className="bg-sand-soft2" />
 
         {/* Services Grid */}
-        <div className="grid gap-6 grid-cols-2 xl:grid-cols-5 w-full max-w-7xl">
+        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full max-w-7xl">
           {data.map((service, index) => (
             <ServiceCard
               key={index}
@@ -29,6 +35,7 @@ const Services = ({ title, data, bgClassName = "bg-gradient-to-b from-home to-gr
           ))}
         </div>
 
+        {/* Dialog Box */}
         <FormDialogBox />
       </div>
     </section>

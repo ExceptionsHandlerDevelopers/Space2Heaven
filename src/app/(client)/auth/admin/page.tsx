@@ -8,7 +8,10 @@ const AuthLayout = () => {
     return (
         <section className="min-h-screen w-full flex-center flex-col">
             <Link href="/">
-                <Image src="/logo.svg"
+                <Image 
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+ 
+loading='eager' src="/logo.svg"
                     alt="Space2Heaven"
                     width={50}
                     height={50}

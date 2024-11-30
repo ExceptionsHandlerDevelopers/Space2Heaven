@@ -25,7 +25,7 @@ const EMICalculator: React.FC = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md mt-10">
+    <div className="h-full max-w-lg mx-auto p-6 bg-white shadow-md rounded-md mt-10">
       <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
         EMI Calculator
       </h1>

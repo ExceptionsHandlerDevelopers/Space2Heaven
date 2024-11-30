@@ -151,7 +151,7 @@ body {
 
   /* Property Card Styles */
   .property-card-styles{
-    @apply relative block h-[300px] md:h-[350px] lg:h-[400px] max-w-full lg:max-w-md rounded-lg overflow-hidden shadow-lg cursor-pointer;
+    @apply relative block h-[300px] md:h-[350px] lg:h-[400px] max-w-full lg:max-w-md rounded-lg overflow-hidden shadow-lg cursor-pointer my-1;
   }
   .property-card-tag{
     @apply absolute top-2 left-2 bg-home text-sand-soft text-xs px-3 py-[2px] rounded-full z-10;
@@ -160,8 +160,8 @@ body {
     @apply text-sand-soft pt-12 p-4 absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/70 to-transparent;
   }
 
-  .section-genral-class{
-    @apply min-h-96 lg:min-h-screen flex-center flex-col py-8 px-4 md:px-8 lg:px-16 xl:px-24 gap-8 w-full;
+  .section-general-class{
+    @apply min-h-96 lg:min-h-screen flex items-center justify-center flex-col py-8 px-4 md:px-8 lg:px-16 xl:px-24 gap-8 w-full;
   }
 
   .header-class{
@@ -177,5 +177,11 @@ body {
   }
   hr{
     @apply w-full h-1 bg-home max-w-xl border-none;
+  }
+  .absolute-class{
+    @apply absolute top-0 left-0 right-0 bottom-0;
+  }
+  .table-style{
+    @apply w-full max-w-5xl bg-white p-4 rounded-lg shadow-lg;
   }
 }

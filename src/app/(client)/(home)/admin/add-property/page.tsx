@@ -93,10 +93,6 @@ const AddProperty: React.FC = () => {
     }
   };
 
-
-
-
-
   const handleFeaturesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const features = e.target.value.split(',').map(feature => feature.trim());
     setFormData({ ...formData, features });

@@ -1,6 +1,6 @@
 import { connectDB } from "@/lib/dbConnection";
 import PropertyModel from "@/models/propertyModel";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { addpropertyImages } from "@/lib/cloudinary";
 
 // Function to process form data
@@ -33,8 +33,23 @@ const processFormData = async (req: Request): Promise<any> => {
 };
 
 
-export const POST = async (req: Request) => {
+export const POST = async (req: NextRequest) => {
     try {
+        const token = req.cookies.get("admin_cookie_token")?.value;
+        
+        if (!token) {
+            return NextResponse.json(
+                { error: "Session timeout!. Please sign in." },
+                {
+                    status: 401,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*", 
+                    },
+                }
+            );
+        }
+
         const inputData = await processFormData(req);
 
         await connectDB();

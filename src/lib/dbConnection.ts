@@ -1,4 +1,4 @@
-import { connect, ConnectionStates } from "mongoose"
+import { connect, connection, ConnectionStates, disconnect } from "mongoose"
 
 const MONGODB_URL = process.env.MONGODB_URL
 
@@ -23,3 +23,10 @@ export const connectDB = async () => {
         throw new Error('Failed to connect to MongoDB');
     }
 }
+
+export const disconnectDB = async () => {
+    if (connection.readyState !== 0) {
+      await disconnect();
+      console.log("Database connection closed");
+    }
+  };

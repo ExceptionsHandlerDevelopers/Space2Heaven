@@ -11,7 +11,10 @@ const Footer = () => {
           {/* Logo Section */}
           <div className="items-start flex-center md:justify-start gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <Image
+              <Image 
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+ 
+loading='eager'
                 src="/logo.svg"
                 alt="Space2Heaven"
                 width={50}

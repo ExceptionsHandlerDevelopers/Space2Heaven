@@ -6,7 +6,9 @@ const Navbar = () => {
   return (
     <nav className="navbar-style">
       <Link href="/" className="flex items-center gap-2">
-        <Image src="/logo.svg"
+        <Image
+          loading='eager'
+          src="/logo.svg"
           alt="Space2Heaven"
           width={50}
           height={50}

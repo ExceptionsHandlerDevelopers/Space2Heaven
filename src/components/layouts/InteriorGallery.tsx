@@ -24,12 +24,14 @@ const InteriorGallery = () => {
                 {flattenedImages.map((img, index) => (
                     <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                         <div className="property-card-styles">
-                            <Image
+                            <Image 
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+
+                                loading='eager'
                                 src={img}
                                 alt={`Interior Design ${index + 1}`}
                                 className="rounded-lg object-cover"
                                 fill
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
                         </div>
                     </CarouselItem>

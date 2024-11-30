@@ -1,5 +1,6 @@
 "use client";
 
+import { Loader } from "@/components";
 import {
   Table,
   TableBody,
@@ -12,61 +13,81 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { CustomerDataTypes } from "@/types";
 import axios from "axios";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
 const Customers = () => {
   const { toast } = useToast()
   const [customerData, setCustomerData] = useState<CustomerDataTypes[]>();
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
   useEffect(() => {
     const fetchCustomers = async () => {
-      const token = Cookies.get("admin_cookie_token"); // Get token from cookies
-      console.log("Token : ", token);
-      
-      if (!token) {
-        toast({
-          description: "Session expired. Please log in again."
-        });
-        return; // Exit if no token is found
-      }
+      setLoading(true)
+      // const token = Cookies.get("admin_cookie_token"); // Get token from cookies
+      // console.log("Token : ", token);
+
+      // if (!token) {
+      //   toast({
+      //     description: "Session expired. Please log in again."
+      //   });
+      //   return; // Exit if no token is found
+      // }
 
       try {
         // Make the request with the token as Authorization header
-        const response = await axios.get<CustomerDataTypes[]>("/api/admin/customers", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log("Response : ", response);
-        
-        setCustomerData(response.data);
+        const response = await axios.get<CustomerDataTypes[]>("/api/admin/customers")
+        // {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // });
+
+        setCustomerData(response.data?.data);
       } catch (error) {
+        setLoading(true)
         console.error("Error fetching data:", error);
+        setError("Failed to fetch customer data.")
         toast({
           description: "Failed to fetch customer data."
         });
+      } finally {
+        setLoading(false)
       }
     };
 
     fetchCustomers();
-  }, []); // Fetch customers on mount
+  }, []);
 
-
-  // If no customer data is available, show loading
-  if (!customerData) {
+  if (loading) {
+    return <Loader />;
+  }
+  
+  if (error) {
     return (
-      <section className="min-h-screen py-24 px-4 bg-sand-soft flex items-center flex-col bg-[url(/images/pattern.png)]">
-        <div className="w-full max-w-5xl bg-white p-4 rounded-lg shadow-lg">
-
-        </div>
+      <section className="min-h-screen py-24 px-4 bg-sand-soft flex-center flex-col bg-[url(/images/pattern.png)]">
+        <h1 className="text-home header-class table-style text-center">
+          {error}
+        </h1>
       </section>
     );
   }
+  
+  if (!customerData || customerData.length === 0) {
+    return (
+      <section className="min-h-screen py-24 px-4 bg-sand-soft flex-center flex-col bg-[url(/images/pattern.png)]">
+        <h1 className="text-home header-class table-style text-center">
+          No customers found!
+        </h1>
+      </section>
+    );
+  }
+  
 
   return (
     <section className="min-h-screen py-24 px-4 bg-sand-soft flex items-center flex-col bg-[url(/images/pattern.png)]">
-      <div className="w-full max-w-5xl bg-white p-4 rounded-lg shadow-lg">
+      <div className="table-style">
         <Table>
           <TableCaption>List of Customers</TableCaption>
           <TableHeader>

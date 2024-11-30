@@ -14,7 +14,7 @@ import { SquareArrowOutUpRight } from "lucide-react";
 
 const DynamicCarousel = ({ type, data, loading }: DynamicCarouselProps) => {
     const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
-    const pathname = usePathname();    
+    const pathname = usePathname();
 
     return (
         <Carousel
@@ -25,7 +25,7 @@ const DynamicCarousel = ({ type, data, loading }: DynamicCarouselProps) => {
         >
             <CarouselContent>
                 {loading
-                    ? Array.from({ length: 6 }).map((_, index) => (
+                    ? Array.from({ length: 4 }).map((_, index) => (
                         <CarouselItem
                             key={index}
                             className={`basis-full md:basis-1/2 lg:basis-1/3 ${pathname === "/" && "xl:basis-1/4"}`}
@@ -33,7 +33,7 @@ const DynamicCarousel = ({ type, data, loading }: DynamicCarouselProps) => {
                             <Skeleton className="h-[300px] md:h-[350px] lg:h-[400px] max-w-sm rounded-xl" />
                         </CarouselItem>
                     ))
-                    :type === "home-properties"
+                    : type === "home-properties"
                         ? (data as Property[]).slice(0, 6).map((property) => (
                             <CarouselItem
                                 key={property._id}
@@ -41,13 +41,11 @@ const DynamicCarousel = ({ type, data, loading }: DynamicCarouselProps) => {
                             >
                                 <PropertyCard
                                     id={property._id}
-                                    imageSrc={property.images[0]}
+                                    imageSrc={property.images[0] || "/images/default-image.webp"}
                                     price={property.price}
                                     features={property.features.join(" | ")}
                                     configuration={property.configuration}
                                     tag={property.propertyType}
-                                    year={property.yearBuilt}
-                                    area={property.area}
                                     location={property.location}
                                 />
                             </CarouselItem>
@@ -59,17 +57,19 @@ const DynamicCarousel = ({ type, data, loading }: DynamicCarouselProps) => {
                             >
                                 <div className="property-card-styles">
                                     <Image
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+
+                                        loading='eager'
                                         src={img}
                                         alt={`Interior Design ${index + 1}`}
                                         className="rounded-lg object-cover"
                                         fill
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     />
                                 </div>
                             </CarouselItem>
                         ))}
                 {/* "More" link for properties */}
-                {data.length > 6 && (
+                {data.length > 5 && (
                     <CarouselItem className="basis-2/3 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                         <div className="flex-center h-full w-full text-center rounded-lg overflow-hidden shadow-lg border bg-sand-soft">
                             <Link

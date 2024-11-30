@@ -3,24 +3,25 @@ import CustomerModel from "@/models/customerModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest) => {
-    console.log(req);
     
     try {
-        const token = req.cookies.get("admin_cookie_token")?.value;
-        console.log("Token : ", token);
+        // const token = req.cookies.get("admin_cookie_token")?.value;
+
+        // console.log("Req : ", req);
         
-        if (!token) {
-            return NextResponse.json(
-                { error: "Session timeout!. Please sign in." },
-                {
-                    status: 401,
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "*", 
-                    },
-                }
-            );
-        }
+        
+        // if (!token) {
+        //     return NextResponse.json(
+        //         { error: "Session timeout!. Please sign in." },
+        //         {
+        //             status: 401,
+        //             headers: {
+        //                 "Content-Type": "application/json",
+        //                 "Access-Control-Allow-Origin": "*", 
+        //             },
+        //         }
+        //     );
+        // }
 
         await connectDB()
 

@@ -1,66 +1,80 @@
 import PropertyModel from "@/models/propertyModel";
 import { NextResponse } from "next/server";
-import { Request } from "next/dist/compiled/@edge-runtime/primitives";
+import mongoose from "mongoose";
 
 export const GET = async (req: Request) => {
-    // Extract `id` from the query parameters
-    const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
 
-    if (!id) {
-        return NextResponse.json(
-            { error: "Property ID is required." },
-            {
-                status: 400,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                },
-            }
-        );
-    }
+  if (!id) {
+    return NextResponse.json(
+      { error: "Property ID is required." },
+      {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
 
-    try {
-        const matchingData = await PropertyModel.findById(id);
+  // Validate if the ID is a valid MongoDB ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return NextResponse.json(
+      { error: "Invalid Property ID format." },
+      {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
 
-        if (!matchingData) {
-            return NextResponse.json(
-                { error: "Property not found." },
-                {
-                    status: 404,
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "*"
-                    },
-                }
-            );
+  try {
+    // Fetch the property matching the given ID
+    const matchingData = await PropertyModel.findById(id);
+
+    if (!matchingData) {
+      return NextResponse.json(
+        { error: "Property not found." },
+        {
+          status: 404,
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-
-        const similarData = await PropertyModel.find({
-            propertyType: matchingData.propertyType,
-            _id: { $ne: id }
-        });
-
-
-        return NextResponse.json(
-            { matchingData, similarData },
-            {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                },
-            }
-        );
-    } catch (error) {
-        console.error("Error fetching property data:", error);
-        return NextResponse.json(
-            { error: "An error occurred while fetching the property data." },
-            {
-                status: 500,
-                headers: { "Content-Type": "application/json" },
-            }
-        );
+      );
     }
-}
 
+    // Fetch similar properties (limit to 5 for performance)
+    const RecommendedData = await PropertyModel.find({
+      recommend: true,
+      _id: { $ne: id }, // Exclude the current property
+    })
+      .limit(5) // Limit the number of results
+      .select("title price propertyType location images features configuration tag"); // Select only the required fields      
+
+    return NextResponse.json(
+      { matchingData, RecommendedData },
+      {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  } catch (error: any) {
+    console.error("Error fetching property data:", error.message);
+
+    return NextResponse.json(
+      { error: error.message || "An internal server error occurred." },
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+};

@@ -6,14 +6,13 @@ import { FilterProps } from "@/types";
 
 const HalfBanner = ({setSearch, setFilters, filters}:{setSearch:(e:string) => void}&FilterProps) => {
 
-    const [key, setKey] = useState<string>("")
     const handleSearch = (e:any) => {
         e.preventDefault()
-        setSearch(key)
+        setSearch(e.target.value)
     }
 
     return (
-        <section className="relative h-[50vh] w-full bg-cover bg-center" style={{ backgroundImage: `url('/images/propertyBanner.webp')` }}>
+        <section className="relative h-[50vh] w-full bg-[url('/images/propertyBanner.webp')] bg-cover bg-center">
             {/* Overlay */}
             <div className="absolute inset-0 bg-black/40">
 
@@ -36,7 +35,7 @@ const HalfBanner = ({setSearch, setFilters, filters}:{setSearch:(e:string) => vo
                             type="text"
                             placeholder="Search by title..."
                             className="flex-grow px-4 py-2 rounded-l-lg text-black focus:outline-none"
-                            onChange={(e) => setKey(e.target.value)}
+                            onChange={(e) => setSearch(e.target.value)}
                         />
                         <DialogBox type="filter" filters={filters} setFilters={setFilters} />
                         <button

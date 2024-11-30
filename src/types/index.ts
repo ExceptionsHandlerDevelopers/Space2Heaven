@@ -25,9 +25,7 @@ export interface PropertyCardProps {
   features: string,
   tag: string,
   configuration: string,
-  year: number,
   location: string,
-  area: string,
   recommend?:true | false
   }
 
@@ -152,3 +150,9 @@ export interface CustomerDataTypes {
   serviceType: "buyProperty" | "interiorDesign" | "sellProperty";
   createdAt?: Date | undefined;
 }
+
+export type PropertiesPageContentProps = {
+  search: string;
+  filters: FilterObject;
+  setFilters: React.Dispatch<React.SetStateAction<FilterObject>>;
+};

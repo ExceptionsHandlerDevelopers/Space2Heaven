@@ -1,0 +1,54 @@
+import PropertyModel from "@/models/propertyModel";
+import { NextRequest, NextResponse } from "next/server";
+import DeletedPropertiesModel from "@/models/deletedPropertiesModel";
+import { disconnectDB } from "@/lib/dbConnection";
+
+export const DELETE = async (req: NextRequest) => {
+    try {
+        const token = req.cookies.get("admin_cookie_token")?.value
+        if (!token) return NextResponse.json(
+            { error: "Session timeout!. Please sign in." },
+            {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            }
+        );
+
+        const { pathname } = new URL(req.url)
+        const id = pathname.split("/").pop()
+
+        const deleteProperty = await PropertyModel.findByIdAndDelete(id)
+        if (!deleteProperty) {
+            return NextResponse.json({ error: 'Property not found' }, 
+                {
+                    status: 404,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*",
+                    },
+                }
+            );
+        }
+
+        const archivedProperty = new DeletedPropertiesModel(deleteProperty.toObject());
+        await archivedProperty.save();
+
+        // await disconnectDB()
+
+        return NextResponse.json({ msg: 'Property deleted successfully' },
+            {
+                status: 200,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            }
+        )
+    } catch (error) {
+        console.error('Error deleting property:', error);
+        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    }
+}

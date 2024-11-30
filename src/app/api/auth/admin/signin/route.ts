@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import AdminModel from "@/models/adminModel";
-import { connectDB } from "@/lib/dbConnection";
+import { connectDB, disconnectDB } from "@/lib/dbConnection";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
@@ -82,5 +82,7 @@ export const POST = async (req: NextRequest) => {
                 headers: { "Content-Type": "application/json" },
             }
         );
+    }finally{
+        await disconnectDB()
     }
 }

@@ -24,7 +24,7 @@ const PropertiesPage = () => {
         </section>
       }
     >
-      <PropertiesPageContent search={search} filters={filters} />
+      <PropertiesPageContent search={search} filters={filters} setFilters={setFilters} />
     </Suspense>
   </>
   );

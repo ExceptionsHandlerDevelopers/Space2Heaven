@@ -45,7 +45,7 @@ const MenuBar = () => {
     };
     
     return (
-        <Menubar className="max-sm:hidden bg-transparent border-none flex items-center gap-4">
+        <Menubar className="max-md:hidden bg-transparent border-none flex items-center gap-4">
             {/* Admin Actions Menu */}
             {currentAdmin &&
                 <MenubarMenu>

@@ -1,28 +1,15 @@
 import { connectDB } from "@/lib/dbConnection";
 import CustomerModel from "@/models/customerModel";
 import { NextRequest, NextResponse } from "next/server";
+import { adminMiddleware } from "../../../../../../middlewares/adminMiddleware";
 
 export const GET = async (req: NextRequest) => {
+
+    const middlewareResponse = adminMiddleware(req);
     
+    if (middlewareResponse) return middlewareResponse;
+
     try {
-        // const token = req.cookies.get("admin_cookie_token")?.value;
-
-        // console.log("Req : ", req);
-        
-        
-        // if (!token) {
-        //     return NextResponse.json(
-        //         { error: "Session timeout!. Please sign in." },
-        //         {
-        //             status: 401,
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //                 "Access-Control-Allow-Origin": "*", 
-        //             },
-        //         }
-        //     );
-        // }
-
         await connectDB()
 
         const getCustomers = await CustomerModel.find().sort({ createdAt: -1 })
@@ -39,9 +26,7 @@ export const GET = async (req: NextRequest) => {
         );
 
 
-        return NextResponse.json(
-            { data: getCustomers },
-            {
+        return NextResponse.json(getCustomers,{
                 status: 200,
                 headers: {
                     "Content-Type": "application/json",

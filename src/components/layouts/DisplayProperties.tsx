@@ -4,7 +4,7 @@ import PropertyCard from "../PropertyCard"
 
 const DisplayProperties = ({ data }: { data: Property[] }) => {
 
-  if(!data) return <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center">Data not found</h1>
+  if (!data) return <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center">Data not found</h1>
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-2 items-center justify-center">

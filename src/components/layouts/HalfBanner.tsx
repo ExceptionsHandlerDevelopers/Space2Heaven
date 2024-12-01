@@ -29,18 +29,18 @@ const HalfBanner = ({setSearch, setFilters, filters}:{setSearch:(e:string) => vo
                 </div>
 
                 {/* Search Bar */}
-                <div className="w-full max-w-lg">
+                <div className="w-full max-w-md md:max-w-lg">
                     <form className="flex" onSubmit={handleSearch}>
                         <input
                             type="text"
                             placeholder="Search by title..."
-                            className="flex-grow px-4 py-2 rounded-l-lg text-black focus:outline-none"
+                            className="flex-grow p-2 rounded-l-lg text-black focus:outline-none"
                             onChange={(e) => setSearch(e.target.value)}
                         />
                         <DialogBox type="filter" filters={filters} setFilters={setFilters} />
                         <button
                             type="submit"
-                            className="bg-grey-1 hover:bg-home text-white px-6 py-2 rounded-r-lg duration-500"
+                            className="bg-grey-1 hover:bg-home text-white p-2 rounded-r-lg duration-500"
                         >
                             <SearchIcon />
                         </button>

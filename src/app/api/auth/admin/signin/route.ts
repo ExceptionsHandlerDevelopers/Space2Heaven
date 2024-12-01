@@ -29,7 +29,7 @@ export const POST = async (req: NextRequest) => {
             );
         }
 
-        const isPasswordMatching = bcrypt.compareSync(inputPassword, findUser.password)
+        const isPasswordMatching = await bcrypt.compare(inputPassword, findUser.password)
 
         if (!isPasswordMatching) {
             return NextResponse.json(
@@ -67,9 +67,9 @@ export const POST = async (req: NextRequest) => {
         response.cookies.set("admin_cookie_token", token, {
             httpOnly: true,
             secure: true,
-            maxAge: 3600 * 24 * 1,
+            maxAge: 3600 * 24,
             sameSite: "strict",
-            path: "/"
+            path: "/api/admin/:path*"
         })
 
         return response

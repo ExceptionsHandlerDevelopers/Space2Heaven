@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { HomeIcon, Calculator, Sofa, Info, MapPinHouse } from 'lucide-react'
+import { HomeIcon, Calculator, Sofa, Info, MapPinHouse, Menu } from 'lucide-react'
 
 const MobileNav = () => {
 
@@ -40,28 +40,19 @@ const MobileNav = () => {
 
     return (
         <section
-            className="w-full flex-center max-sm:flex hidden">
+            className="w-full flex-center max-md:flex hidden">
             <Sheet>
                 <SheetTrigger>
-                    <Image 
-  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
- 
-loading='eager'
-                        src="/icons/mobile-menu.svg"
-                        alt="Menu"
-                        width={30}
-                        height={30}
-                        className="cursor-pointer sm:hidden invert"
-                    />
+                    <Menu size={20} />
                 </SheetTrigger>
                 <SheetContent
                     className="border-none px-0 pb-0 bg-home bg-[url(/images/pattern.png)]"
                 >
                     <Link href="/" className="flex items-center gap-2 px-4 pb-4">
-                        <Image 
-  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
- 
-loading='eager' src="/logo.svg"
+                        <Image
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            loading='eager' 
+                            src="/logo.svg"
                             alt="HN"
                             width={32}
                             height={32}

@@ -4,6 +4,7 @@ import { DisplayProperties, LoaderLayout } from "@/components";
 import { FilterObject, PropertiesPageContentProps, Property } from "@/types";
 import axios from "axios";
 import { X } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -83,10 +84,10 @@ const PropertiesPageContent = ({ search, filters, setFilters }: PropertiesPageCo
   if (error) {
     return <p className="text-center text-red-600 text-xl">{error}</p>;
   }
- 
+
   return (
     <section className="min-h-screen w-full flex-center flex-col md:flex-row px-4 md:px-10 bg-[url(/images/pattern.png)]">
-      <main className="flex flex-col w-full p-4 md:p-6 gap-4">
+      <main className="flex flex-col w-full h-full p-4 md:p-6 gap-4">
         <h1 className="text-2xl font-semibold">Discover Your Dream Property</h1>
         {/* Applied Filters */}
         <div className="flex items-center gap-4 w-full text-xs">
@@ -115,7 +116,7 @@ const PropertiesPageContent = ({ search, filters, setFilters }: PropertiesPageCo
                 </span>
               )}
               <button className="text-home capitalize flex-center gap-1 hover:underline duration-200" onClick={clearFilter} >
-                <X size={15}/>
+                <X size={15} />
                 clear filters
               </button>
             </>
@@ -125,8 +126,15 @@ const PropertiesPageContent = ({ search, filters, setFilters }: PropertiesPageCo
         </div>
 
 
-        {loading ? <LoaderLayout />
-          :
+        {loading ? (
+          <LoaderLayout />
+        ) : displayedData.length === 0 ? ( // Corrected condition to display the image when no data is found
+          <div className="w-full min-h-[50vh] flex-center">
+            <p className="text-center text-home mt-4">
+              No properties match your search or filters. Try adjusting your filters or search criteria.
+            </p>
+          </div>
+        ) : (
           <InfiniteScroll
             dataLength={displayedData.length}
             next={loadMoreData}
@@ -135,7 +143,7 @@ const PropertiesPageContent = ({ search, filters, setFilters }: PropertiesPageCo
           >
             <DisplayProperties data={displayedData} />
           </InfiniteScroll>
-        }
+        )}
         {/* Display Properties */}
       </main>
     </section>

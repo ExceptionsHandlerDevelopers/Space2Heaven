@@ -34,23 +34,35 @@ const AddProperty: React.FC = () => {
     recommend: false
   });
 
+
+
   useEffect(() => {
     const storedAdminDetails = localStorage.getItem("adminDetails");
+    const storedLocationsDropdown = localStorage.getItem("locationDropdown");
     const storedLocations = localStorage.getItem("locations");
 
-    if (!storedAdminDetails) {
-      setTimeout(() => router.push("/"), 1000);
-    } else {
-      setAdminDetails(storedAdminDetails);
-    }
+    // Redirect if adminDetails is missing
+    !storedAdminDetails ? router.push("/")
+    : setAdminDetails(storedAdminDetails)
 
-    if (storedLocations) {
-      setLocations(JSON.parse(storedLocations));
+    if (storedLocationsDropdown && storedLocations) {
+      // Parse JSON data
+      const dropdownArray: string[] = JSON.parse(storedLocationsDropdown);
+      const locationsArray: Option[] = JSON.parse(storedLocations);
+
+      // Filter locations
+      const filteredLocations = locationsArray.filter((item) =>
+        dropdownArray.includes(item.value)
+      );
+
+      setLocations(filteredLocations);
     } else {
+      // Fallback to default cityOptions
       localStorage.setItem("locations", JSON.stringify(cityOptions));
       setLocations(cityOptions);
     }
   }, [router]);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -143,6 +155,7 @@ const AddProperty: React.FC = () => {
       toast({
         description: response?.data?.msg,
       });
+      router.push("/properties")
     } catch (error: any) {
       console.error("Error:", error);
       const errorMessage = error?.response?.data?.error || error?.message || "An error occurred. Unable to add property";
@@ -209,7 +222,7 @@ const AddProperty: React.FC = () => {
               <div className="mb-4">
                 <p className="mb-2 font-medium">Configuration (BHK)</p>
                 <div className="flex gap-2">
-                  {["1 BHK", "2 BHK", "3 BHK", "4 BHK", "5+ BHK"].map((option) => (
+                  {["1 BHK", "2 BHK", "3 BHK", "4+ BHK"].map((option) => (
                     <button
                       key={option}
                       type="button"
@@ -320,7 +333,7 @@ const AddProperty: React.FC = () => {
                 <input
                   type="checkbox"
                   name="recommend"
-                  onChange={() => setFormData({...formData, recommend: !formData.recommend})}
+                  onChange={() => setFormData({ ...formData, recommend: !formData.recommend })}
                 />
               </div>
             </div>

@@ -2,13 +2,21 @@
 import cn from 'classnames'
 import Link from "next/link"
 import Image from "next/image"
-import { usePathname } from "next/navigation"
+import { Admin } from '@/types'
+import { useEffect, useState } from 'react'
+import AdminMenu from './AdminMenu'
+import { usePathname, useRouter } from "next/navigation"
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { HomeIcon, Calculator, Sofa, Info, MapPinHouse, Menu } from 'lucide-react'
+import { HomeIcon, Calculator, Sofa, Info, MapPinHouse, Menu, UserRoundCog, LogOut } from 'lucide-react'
+import axios from 'axios'
+import { useToast } from '@/hooks/use-toast'
 
 const MobileNav = () => {
 
+    const router = useRouter();
+    const { toast } = useToast();
     const pathname = usePathname()
+    const [currentAdmin, setCurrentAdmin] = useState<Admin | null>(null)
 
     const sidebarLinks = [
         {
@@ -35,8 +43,30 @@ const MobileNav = () => {
             route: "/about",
             label: "About",
             logo: <Info size={20} />,
-        },
+        }
     ]
+
+    useEffect(() => {
+        const adminDetails = localStorage.getItem("adminDetails");
+        setCurrentAdmin(adminDetails ? JSON.parse(adminDetails) : null);
+    }, []);
+
+    const adminLogout = async () => {
+        try {
+            await axios.post("/api/auth/admin/signout");
+            localStorage.removeItem("adminDetails");
+            setCurrentAdmin(null);
+            toast({
+                description: "Sign out successful!",
+            });
+            router.push("/");
+        } catch (error) {
+            toast({
+                description: "Sign out failed!",
+            });
+            console.error("Logout error:", error);
+        }
+    };
 
     return (
         <section
@@ -51,7 +81,7 @@ const MobileNav = () => {
                     <Link href="/" className="flex items-center gap-2 px-4 pb-4">
                         <Image
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            loading='eager' 
+                            loading='eager'
                             src="/logo.svg"
                             alt="HN"
                             width={32}
@@ -80,6 +110,30 @@ const MobileNav = () => {
                                         </SheetClose>
                                     );
                                 })}
+                                {currentAdmin &&
+                                    <>
+                                        <Link
+                                            href={"/admin/dashboard"}
+                                            className={cn("menu-link w-full", { "bg-home text-sand-soft": pathname === "/admin/dashboard" })}
+                                        >
+                                            <UserRoundCog size={20} />
+                                            <p className="font-semibold">
+                                                Admin Dashboard
+                                            </p>
+
+                                        </Link>
+                                        <button
+                                            onClick={adminLogout}
+                                            className="menu-link w-full hover:bg-home hover:text-sand-soft duration-300"
+                                        >
+                                            <LogOut size={20} />
+                                            <p className="font-semibold">
+                                                Sign Out
+                                            </p>
+
+                                        </button>
+                                    </>
+                                }
                             </section>
 
                         </SheetClose>

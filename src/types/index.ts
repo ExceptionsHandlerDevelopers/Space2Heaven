@@ -1,3 +1,4 @@
+import { SetStateAction } from "react";
 
 export interface Property {
   title: string;
@@ -92,7 +93,7 @@ export interface PropertyPaneProps {
 
 export interface DynamicCarouselProps {
   type: "interior-self-intro" | "home-properties" | "home-interior" | "interior";
-  data: Property[] | string[]; // Property[] for properties, string[] for interior images
+  data: Property[] | string[];
   loading: boolean;
 }
 
@@ -156,3 +157,8 @@ export type PropertiesPageContentProps = {
   filters: FilterObject;
   setFilters: React.Dispatch<React.SetStateAction<FilterObject>>;
 };
+
+export type AdminMenuProp = {
+  currentAdmin:Admin | null
+  setCurrentAdmin:React.Dispatch<React.SetStateAction<Admin | null>>
+}

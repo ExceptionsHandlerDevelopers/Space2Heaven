@@ -16,7 +16,7 @@ const DropDownList = () => {
   const [selectedOption, setSelectedOption] = useState<"buyProperty" | "interiorDesign" | "">("");
 
   const handleSelectChange = (value: "buyProperty" | "interiorDesign") => {
-    setSelectedOption(value); // Update the state with the selected value
+    setSelectedOption(value);
 
     if (value === "buyProperty") {
       router.push("/properties");

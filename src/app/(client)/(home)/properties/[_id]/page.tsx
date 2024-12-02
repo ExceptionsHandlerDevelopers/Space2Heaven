@@ -7,7 +7,7 @@ import { Trash2, UserRoundPen } from "lucide-react";
 import moment from "moment"
 import { useParams, useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import Cookies from "js-cookie";
+import Link from "next/link";
 
 
 const PropertyById = () => {
@@ -41,15 +41,8 @@ const PropertyById = () => {
     const deleteProperty = async (e: React.MouseEvent) => {
         e.preventDefault()
         setLoading(true)
-        // const token = Cookies.get("admin_cookie_token")
         try {
             const response = await axios.delete(`/api/admin/delete-property/${id}`)
-            //     {
-            //     headers: {
-            //         Authorization: `Bearer ${token}`,
-            //         "Content-Type": "multipart/form-data"
-            //     }
-            // })
             toast({
                 description: response.data.msg
             })
@@ -101,7 +94,9 @@ const PropertyById = () => {
                         <div className="flex justify-between items-center w-full">
                             <h1 className="text-xl lg:text-3xl font-bold text-left w-full">{title || "Title"}</h1>
                             {currentAdmin && <div className="flex-center gap-2">
-                                <UserRoundPen size={20} color="green" />
+                                <Link href={`/properties/${id}/update-property`}>
+                                    <UserRoundPen size={20} color="green" />
+                                </Link>
                                 <Trash2 size={20} color="red" onClick={deleteProperty} className="cursor-pointer" />
                             </div>}
                         </div>

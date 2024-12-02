@@ -125,7 +125,7 @@ body {
   }
 /* Input */
   .input-class{
-    @apply w-full px-3 py-2 border bg-transparent border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-grey-1;
+    @apply w-full px-3 py-2 border bg-white border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-grey-1;
   }
   .btn-class{
     @apply mt-4 px-4 py-2 border text-grey-1 border-grey-1 hover:text-sand-soft font-medium rounded-md hover:bg-grey-1 transition-colors duration-500;
@@ -173,7 +173,7 @@ body {
   }
 
   .filter-class{
-    @apply bg-sand-soft  text-grey-1 border-l-2 border-l-grey-1 px-4 py-2 duration-500 hover:bg-home hover:text-sand-soft;
+    @apply bg-sand-soft  text-grey-1 border-l-2 border-l-grey-1 p-2 duration-500 hover:bg-home hover:text-sand-soft;
   }
   hr{
     @apply w-full h-1 bg-home max-w-xl border-none;

@@ -14,7 +14,7 @@ const DialogBox = ({ type = "contact", filters, setFilters }: DialogBoxProps) =>
     return (
         <Dialog>
             <DialogTrigger
-                className={type === "filter" ? "filter-class" : `text-sand-soft border-sand-soft btn-class`}
+                className={type === "filter" ? "filter-class self-center" : `text-sand-soft border-sand-soft btn-class`}
             >
                 {type === "filter" ? <SlidersHorizontal /> : "Get in Touch"}
             </DialogTrigger>

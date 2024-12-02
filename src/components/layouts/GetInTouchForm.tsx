@@ -3,20 +3,7 @@ import DialogForm from "./DialogForm"
 
 const GetInTouchForm = ({ pageType }: { pageType?: string }) => {
   return (
-    <section className="get-in-touch relative overflow-hidden min-h-screen">
-      {/* Pattern Image */}
-      <div className="absolute top-0 -right-32 w-1/4 h-1/4 rotate-180 transform scale-x-1">
-        <Image 
-  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
- 
-loading='eager'
-          src="/images/pattern2.png"
-          alt="pattern"
-          fill
-          className="object-cover filter grayscale opacity-50"
-        />
-      </div>
-
+    <section className="get-in-touch relative overflow-hidden min-h-screen bg-[url('/images/pattern.png')]">
       {/* Section Heading */}
       <h1 className={`${pageType === "interior" ? "text-interior" : "text-home"} header-class`}>Get in Touch</h1>
       <hr className={pageType === "interior" ? "bg-interior" : "bg-home"} />
@@ -25,10 +12,10 @@ loading='eager'
       <div className="w-full flex flex-col lg:flex-row items-stretch gap-4">
         {/* Image Section */}
         <div className="relative w-full lg:w-3/5 rounded-lg overflow-hidden flex-center">
-          <Image 
-  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
- 
-loading='eager'
+          <Image
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+
+            loading='eager'
             src="/images/formbanner.webp"
             alt="Form Banner"
             width={801}

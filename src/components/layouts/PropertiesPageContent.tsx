@@ -46,7 +46,7 @@ const PropertiesPageContent = ({ search, filters, setFilters }: PropertiesPageCo
         (!filters.budget.min || cleanPrice >= parseInt(filters.budget.min, 10)) &&
         (!filters.budget.max || cleanPrice <= parseInt(filters.budget.max, 10));
       const matchesPropertyType =
-        filters.propertyType.length === 0 || filters.propertyType.includes(property.propertyType);
+        filters.propertyType.length === 0 || (filters.propertyType.includes("All") ? [] : filters.propertyType.includes(property.propertyType));
       const matchesState = !filters.state || property.address.state.toLowerCase().includes(filters.state.toLowerCase());
 
       return matchesTitle && matchesCity && matchesBhk && matchesBudget && matchesPropertyType && matchesState;
@@ -84,9 +84,10 @@ const PropertiesPageContent = ({ search, filters, setFilters }: PropertiesPageCo
   if (error) {
     return <p className="text-center text-red-600 text-xl">{error}</p>;
   }
+console.log("search : ", search);
 
   return (
-    <section className="min-h-screen w-full flex-center flex-col md:flex-row px-4 md:px-10 bg-[url(/images/pattern.png)]">
+    <section className="min-h-screen w-full flex justify-center items-start flex-col md:flex-row px-4 md:px-10 bg-[url(/images/pattern.png)]">
       <main className="flex flex-col w-full h-full p-4 md:p-6 gap-4">
         <h1 className="text-2xl font-semibold">Discover Your Dream Property</h1>
         {/* Applied Filters */}

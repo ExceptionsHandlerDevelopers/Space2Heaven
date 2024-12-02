@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const adminMiddleware = (req: NextRequest) => {
 
-    const token = req.cookies.get("admin_cookie_token");
+    const token = req.cookies.get("__session");
     
     if (!token) {
         return NextResponse.json(
@@ -21,6 +21,6 @@ export const adminMiddleware = (req: NextRequest) => {
 }
 
 export const config = {
-matchers:"/api/admin/:path*"
+matchers:"/api/admin/*"
 }
 

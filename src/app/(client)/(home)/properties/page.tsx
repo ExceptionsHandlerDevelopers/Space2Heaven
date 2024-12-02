@@ -12,11 +12,10 @@ const PropertiesPage = () => {
     bhk: "",
     budget: { min: "", max: "" },
     propertyType: [],
-    // features: [],
   });
 
   return (<>
-    <HalfBanner setSearch={setSearch} filters={filters} setFilters={setFilters} />
+    <HalfBanner search={search} setSearch={setSearch} filters={filters} setFilters={setFilters} />
     <Suspense
       fallback={
         <section className="min-h-screen w-full flex-center">

@@ -31,6 +31,7 @@ const FormTabs = () => {
     const [secretKey, setSecretKey] = useState("")
     const { toast } = useToast()
     const [isHidden, setIsHidden] = useState(false)
+    const [hideSecret, setHideSecret] = useState(true)
     const [signupInputs, setSignupInputs] = useState<AuthInputs>({
         name: "",
         email: "",
@@ -74,6 +75,7 @@ const FormTabs = () => {
 
                 if (path === "signup" && response?.statusText === "OK") {
                     setActiveTab("signin");
+                    setSecretKey("")
                 } else if (path === "signin" && response?.statusText === "OK") {
                     const adminDetails = response?.data;
                     toast({
@@ -104,7 +106,7 @@ const FormTabs = () => {
             router.push("/")
         }
     }
-    
+
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -166,7 +168,7 @@ const FormTabs = () => {
                                             onChange={handleInputChange}
                                         />
                                         <span
-                                            className="absolute right-4 top-10 bottom-0 h-fit"
+                                            className="absolute right-4 top-8 bottom-5 h-fit"
                                             onClick={() => setShowPassword(!showPassword)}
                                             role="button"
                                             aria-label="Toggle for visibility"
@@ -186,7 +188,7 @@ const FormTabs = () => {
                                                 placeholder="Confirm Password"
                                             />
                                             <span
-                                                className="absolute right-4 top-10 bottom-0 h-fit"
+                                                className="absolute right-4 top-8 bottom-5 h-fit"
                                                 onClick={() => setIsHidden(!isHidden)}
                                                 role="button"
                                                 aria-label="Toggle for visibility"
@@ -205,8 +207,8 @@ const FormTabs = () => {
                                             onChange={(e) => setSecretKey(e.target.value)}
                                         />
                                         <span
-                                            className="absolute right-4 top-10 bottom-0 h-fit"
-                                            onClick={() => setIsHidden(!isHidden)}
+                                            className="absolute right-4 top-8 bottom-5 h-fit"
+                                            onClick={() => setHideSecret(!hideSecret)}
                                             role="button"
                                             aria-label="Toggle for visibility"
                                         >

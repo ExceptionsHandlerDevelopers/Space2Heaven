@@ -82,7 +82,5 @@ export const POST = async (req: NextRequest) => {
                 headers: { "Content-Type": "application/json" },
             }
         );
-    }finally{
-        await disconnectDB()
     }
 }

@@ -4,7 +4,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { Admin } from '@/types'
 import { useEffect, useState } from 'react'
-import AdminMenu from './AdminMenu'
 import { usePathname, useRouter } from "next/navigation"
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { HomeIcon, Calculator, Sofa, Info, MapPinHouse, Menu, UserRoundCog, LogOut } from 'lucide-react'
@@ -67,7 +66,7 @@ const MobileNav = () => {
             console.error("Logout error:", error);
         }
     };
-
+    
     return (
         <section
             className="w-full flex-center max-md:flex hidden">
@@ -76,7 +75,7 @@ const MobileNav = () => {
                     <Menu size={20} />
                 </SheetTrigger>
                 <SheetContent
-                    className="border-none px-0 pb-0 bg-home bg-[url(/images/pattern.png)]"
+                    className={`border-none px-0 pb-0 ${pathname==="/interior" ?  "bg-interior"  : "bg-home"} bg-[url(/images/pattern.png)]`}
                 >
                     <Link href="/" className="flex items-center gap-2 px-4 pb-4">
                         <Image
@@ -88,7 +87,7 @@ const MobileNav = () => {
                             height={32}
                             className="max-sm:size-10"
                         />
-                        <h1 className="text-2xl font-bold text-sand-soft">Space2Heaven</h1>
+                        <h1 className={`text-2xl font-bold ${pathname==="/interior" ?  "text-sand-soft2"  : "text-sand-soft"}`}>Space2Heaven</h1>
                     </Link>
 
                     <div className="mobile-menu bg-sand-soft px-4">
@@ -100,7 +99,8 @@ const MobileNav = () => {
                                         <SheetClose asChild key={index}>
                                             <Link
                                                 href={route}
-                                                className={cn("menu-link w-full", { "bg-home text-sand-soft": isActive })}
+                                                className={cn("menu-link w-full", {
+                                                     "bg-grey-1 text-sand-soft": isActive })}
                                             >
                                                 {logo}
                                                 <p className="font-semibold">
@@ -114,7 +114,7 @@ const MobileNav = () => {
                                     <>
                                         <Link
                                             href={"/admin/dashboard"}
-                                            className={cn("menu-link w-full", { "bg-home text-sand-soft": pathname === "/admin/dashboard" })}
+                                            className={cn("menu-link w-full", { "bg-grey-1 text-sand-soft": pathname === "/admin/dashboard" })}
                                         >
                                             <UserRoundCog size={20} />
                                             <p className="font-semibold">
@@ -124,7 +124,7 @@ const MobileNav = () => {
                                         </Link>
                                         <button
                                             onClick={adminLogout}
-                                            className="menu-link w-full hover:bg-home hover:text-sand-soft duration-300"
+                                            className="menu-link w-full hover:bg-grey-1 hover:text-sand-soft duration-300"
                                         >
                                             <LogOut size={20} />
                                             <p className="font-semibold">

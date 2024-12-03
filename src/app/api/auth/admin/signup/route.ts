@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt"
 import AdminModel from "@/models/adminModel";
-import { connectDB, disconnectDB } from "@/lib/dbConnection";
+import { connectDB } from "@/lib/dbConnection";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {

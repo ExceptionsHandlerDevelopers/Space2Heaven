@@ -1,13 +1,14 @@
 "use client";
-import React, { useState } from "react";
 import CityNState from "./CityNState";
+import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { cityOptions, filterTypes } from "@/constants";
 import { FilterObject, FilterProps } from "@/types";
 
 const FilterProperties: React.FC<FilterProps> = ({ setFilters, filters }) => {
   const { toast } = useToast();
-
+  const pathname = usePathname();
   // Local state to store filter values
   const [localFilters, setLocalFilters] = useState<FilterObject>(filters);
 
@@ -65,14 +66,16 @@ const FilterProperties: React.FC<FilterProps> = ({ setFilters, filters }) => {
       </h2>
 
       {/* City and State */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <CityNState
-          cityValue={localFilters.city}
-          stateValue={localFilters.state}
-          handleChange={handleInputChange}
-          locations={cityOptions}
-        />
-      </div>
+      {pathname !== "/properties" &&
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <CityNState
+            cityValue={localFilters.city}
+            stateValue={localFilters.state}
+            handleChange={handleInputChange}
+            locations={cityOptions}
+          />
+        </div>
+      }
 
       {/* BHK Selection */}
       <div className="mb-4">
@@ -88,11 +91,10 @@ const FilterProperties: React.FC<FilterProps> = ({ setFilters, filters }) => {
                   bhk: option,
                 }))
               }
-              className={`px-4 py-2 rounded-full border ${
-                localFilters.bhk === option
+              className={`px-4 py-2 rounded-full border ${localFilters.bhk === option
                   ? "bg-home text-sand-soft"
                   : "bg-gray-200 text-home"
-              }`}
+                }`}
             >
               {option}
             </button>
@@ -151,7 +153,7 @@ const FilterProperties: React.FC<FilterProps> = ({ setFilters, filters }) => {
         Apply Filters
       </button>
     </div>
-  );  
+  );
 };
 
 export default FilterProperties;

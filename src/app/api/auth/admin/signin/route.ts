@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import AdminModel from "@/models/adminModel";
-import { connectDB, disconnectDB } from "@/lib/dbConnection";
+import { connectDB } from "@/lib/dbConnection";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
@@ -38,7 +38,8 @@ export const POST = async (req: NextRequest) => {
                     status: 401,
                     headers: {
                         "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "*"
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Credentials": "true"
                     },
                 }
             );
@@ -59,11 +60,12 @@ export const POST = async (req: NextRequest) => {
                 status: 200,
                 headers: {
                     "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Credentials": "true"
                 },
             }
         );
-
+        
         response.cookies.set("admin_cookie_token", token, {
             httpOnly: true,
             secure: true,
@@ -71,7 +73,7 @@ export const POST = async (req: NextRequest) => {
             sameSite: "strict",
             path: "/api/admin/:path*"
         })
-
+        
         return response
     } catch (error) {
         console.error("Error saving customer:", error);

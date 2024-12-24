@@ -24,11 +24,11 @@ const PropertyById = () => {
             setLoading(true);
             try {
                 const response = await axios.get(`/api/properties?id=${id}`);
-                const { matchingData, RecommendedData } = response.data;
+                const { matchingData, recommendedData } = response.data;
 
                 // Set the main property data
                 setPropertyData(matchingData);
-                setSimilarProperties(RecommendedData);
+                setSimilarProperties(recommendedData);
             } catch (error) {
                 console.error("Failed to fetch property data:", error);
             } finally {
@@ -144,7 +144,7 @@ const PropertyById = () => {
             {/* Similar Properties Carousel */}
             <hr className="my-8 w-full max-w-4xl" />
             <div className="w-full max-w-6xl">
-                <h1 className="text-2xl font-semibold mb-4">Similar Properties</h1>
+                <h1 className="text-2xl font-semibold mb-4">Recommended Properties</h1>
                 <DynamicCarousel data={similarProperties} loading={loading} type="home-properties" />
             </div>
         </section>

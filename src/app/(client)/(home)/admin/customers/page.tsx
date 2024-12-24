@@ -10,17 +10,30 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { CustomerDataTypes } from "@/types";
-import axios from "axios";
-import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
 const Customers = () => {
   const { toast } = useToast()
+  const router = useRouter();
+  const [adminDetails, setAdminDetails] = useState<string | null>(null);
   const [customerData, setCustomerData] = useState<CustomerDataTypes[]>();
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+
+
+
+  useEffect(() => {
+    setAdminDetails(localStorage.getItem("adminDetails"));
+    if (!adminDetails) {
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
+    }
+  }, [router, adminDetails]);
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -44,6 +57,14 @@ const Customers = () => {
 
     fetchCustomers();
   }, []);
+
+  if (!adminDetails) {
+    return (<section className="min-h-screen py-24 px-4 bg-sand-soft flex-center flex-col bg-[url(/images/pattern.png)]">
+      <h1 className="text-home header-class table-style text-center">
+        Access Denied..!
+      </h1>
+    </section>)
+  }
 
   if (error) {
     return (

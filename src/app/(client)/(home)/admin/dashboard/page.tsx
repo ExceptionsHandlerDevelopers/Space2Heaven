@@ -17,7 +17,7 @@ const Dashboard = () => {
     if (!storedAdminDetails) {
       setTimeout(() => {
         router.push("/");
-      }, 1500);
+      }, 1000);
     }
   }, [router]);
 

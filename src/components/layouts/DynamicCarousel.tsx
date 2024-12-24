@@ -13,9 +13,9 @@ import { usePathname } from "next/navigation";
 import { SquareArrowOutUpRight } from "lucide-react";
 
 const DynamicCarousel = ({ type, data, loading }: DynamicCarouselProps) => {
-    const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
     const pathname = usePathname();
-
+    const plugin = useRef(Autoplay({ delay: 2000}));
+    
     return (
         <Carousel
             plugins={[plugin.current]}
@@ -50,7 +50,7 @@ const DynamicCarousel = ({ type, data, loading }: DynamicCarouselProps) => {
                                 />
                             </CarouselItem>
                         ))
-                        : (data as string[]).slice(0, 6).map((img, index) => (
+                        : (data as string[]).map((img, index) => (
                             <CarouselItem
                                 key={index}
                                 className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4"

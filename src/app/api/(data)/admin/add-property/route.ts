@@ -2,7 +2,7 @@ import { connectDB } from "@/lib/dbConnection";
 import PropertyModel from "@/models/propertyModel";
 import { NextRequest, NextResponse } from "next/server";
 import { addpropertyImages } from "@/lib/cloudinary";
-import { adminMiddleware } from "../../../../../../middlewares/adminMiddleware";
+// import { adminMiddleware } from "../../../../../../middlewares/adminMiddleware";
 
 // Function to process form data
 const processFormData = async (req: Request): Promise<any> => {
@@ -36,9 +36,9 @@ const processFormData = async (req: Request): Promise<any> => {
 
 export const POST = async (req: NextRequest) => {
 
-    const middlewareResponse = adminMiddleware(req);
+    // const middlewareResponse = adminMiddleware(req);
     
-    if (middlewareResponse) return middlewareResponse;
+    // if (middlewareResponse) return middlewareResponse;
     try {
 
         const inputData = await processFormData(req);

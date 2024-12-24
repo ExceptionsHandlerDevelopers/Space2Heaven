@@ -66,13 +66,15 @@ const FormTabs = () => {
                 const response = await axios.post(`/api/auth/admin/${path}`, formInput, {
                     headers: {
                         "Content-Type": "application/json"
-                    }
+                    },
+                    withCredentials: true
                 })
 
                 toast({
                     description: response?.data?.msg
                 })
-
+                console.log("Response : ", response);
+                
                 if (path === "signup" && response?.statusText === "OK") {
                     setActiveTab("signin");
                     setSecretKey("")

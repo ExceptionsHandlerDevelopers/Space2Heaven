@@ -17,9 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html>
+    <html lang="en">
       <body className="bg-sand-soft">
-          {children}
+        {children}
         <Toaster />
       </body>
     </html>

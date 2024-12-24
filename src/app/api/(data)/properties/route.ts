@@ -48,15 +48,17 @@ export const GET = async (req: Request) => {
     }
 
     // Fetch similar properties (limit to 5 for performance)
-    const RecommendedData = await PropertyModel.find({
+    const recommendedData = await PropertyModel.find({
       recommend: true,
       _id: { $ne: id }, // Exclude the current property
     })
       .limit(5) // Limit the number of results
-      .select("title price propertyType location images features configuration tag"); // Select only the required fields      
+      .select("title price propertyType location images features configuration tag recommend");
 
+      console.log("Matching data : ", recommendedData);
+      
     return NextResponse.json(
-      { matchingData, RecommendedData },
+      { matchingData, recommendedData },
       {
         status: 200,
         headers: {

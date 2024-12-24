@@ -1,13 +1,15 @@
 import { connectDB } from "@/lib/dbConnection";
 import CustomerModel from "@/models/customerModel";
 import { NextRequest, NextResponse } from "next/server";
-import { adminMiddleware } from "../../../../../../middlewares/adminMiddleware";
+// import { adminMiddleware } from "../../../../../../middlewares/adminMiddleware";
 
 export const GET = async (req: NextRequest) => {
 
-    const middlewareResponse = adminMiddleware(req);
+    // console.log("Request : ", req);
     
-    if (middlewareResponse) return middlewareResponse;
+    // const middlewareResponse = adminMiddleware(req);
+    
+    // if (middlewareResponse) return middlewareResponse;
 
     try {
         await connectDB()
